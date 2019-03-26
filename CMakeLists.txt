@@ -6,7 +6,14 @@ include_directories(${GTEST_INCLUDE_DIRS})
 enable_testing()
  
 # Link runTests with what we want to test and the GTest and pthread library
-add_executable(runTests.out runTests.cpp)
-target_link_libraries(runTests.out ${GTEST_LIBRARIES} pthread)
+file(GLOB_RECURSE test_SRC "*test.cpp")
+set(test_SRC
+    "09arboles/test"
+)
 
-add_test( runTests runTests.out ) 
+foreach(test IN LISTS test_SRC)
+    message(STATUS ${test})
+    add_executable(${test}.out ${test}.cpp)
+    target_link_libraries(${test}.out ${GTEST_LIBRARIES} pthread)
+    add_test( ${test} ${test}.out ) 
+endforeach()

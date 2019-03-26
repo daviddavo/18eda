@@ -1,0 +1,36 @@
+stages:
+    - build
+    - test
+
+build cmake:
+    stage: build
+    image: alpine
+    only:
+        - master
+    tags:
+        - docker
+    cache:
+      paths:
+        - *.cmake
+        - CMakeCache.txt
+    artifacts:
+      paths:
+        - Makefile
+    before_script:
+        - apk add cmake gtest
+    script:
+        - cmake ./
+
+build:
+  stage: build
+  image: alpine
+  only:
+    - master
+  tags:
+    - docker
+  dependencies:
+    - build cmake
+  before_script:
+    - apk add gtest
+  script:
+    - make
