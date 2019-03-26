@@ -2,7 +2,7 @@ stages:
     - build
     - test
 
-build cmake:
+build:
     stage: build
     image: alpine
     only:
@@ -11,26 +11,13 @@ build cmake:
         - docker
     cache:
       paths:
-        - *.cmake
+        - ./*.cmake
         - CMakeCache.txt
     artifacts:
       paths:
-        - Makefile
+        - 09arboles/test.cpp
     before_script:
         - apk add cmake gtest
     script:
         - cmake ./
-
-build:
-  stage: build
-  image: alpine
-  only:
-    - master
-  tags:
-    - docker
-  dependencies:
-    - build cmake
-  before_script:
-    - apk add gtest
-  script:
-    - make
+        - make
