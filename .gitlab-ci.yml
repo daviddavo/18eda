@@ -17,7 +17,7 @@ build:
       paths:
         - 09arboles/test.cpp
     before_script:
-        - apk add gcc g++ clang make cmake
+        - apk add git gcc g++ clang make cmake
     script:
         - cmake ./
         - make
