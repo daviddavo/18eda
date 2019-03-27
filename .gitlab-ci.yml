@@ -20,7 +20,6 @@ build:
         - cd build
         - cmake ..
         - make
-        - make test
         - ./testArboles
 
 test arboles:
