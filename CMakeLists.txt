@@ -23,6 +23,7 @@ target_link_libraries(testArboles
 )
 
 # Tell ctest about my tests
+enable_testing()
 include(GoogleTest)
 gtest_add_tests(
     TARGET      testArboles
