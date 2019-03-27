@@ -13,13 +13,15 @@ endif()
 
 # Configure google-test as a downloadable library.
 include(External_GTest.cmake)
+add_library(arbin INTERFACE)
+target_include_directories(arbin INTERFACE 09arboles/arbol_binario)
 
 add_executable(testArboles
     09arboles/test.cpp)
 
 # This will automatically handle all of the lib linkage and include dirs
 target_link_libraries(testArboles
-    ${GTEST_LIBRARY}
+    ${GTEST_LIBRARY} arbin
 )
 
 # Tell ctest about my tests

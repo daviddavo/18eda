@@ -1,4 +1,36 @@
 #include "gtest/gtest.h"
+#include "01/arbin_modificado.h"
+#include "02/ej02.h"
+
+class TestArboles : public :: testing::Test {
+	protected :
+		Arbin<int> a0_;
+		Arbin<int> hoja_;
+
+		void SetUp() override {
+			a0_ = Arbin<int>(
+				Arbin<int>(
+					Arbin<int> (
+						Arbin<int>(),
+						3,
+						Arbin<int>()
+					),
+					2,
+					Arbin<int> ()
+				),
+				0,
+				Arbin<int>(Arbin<int>(7))
+			);
+			hoja_ = Arbin<int>(5);
+		}
+};
+
+class TestArboles00 : public :: TestArboles {};
+
+TEST_F(TestArboles00, raiz) {
+	EXPECT_EQ(0, a0_.raiz());
+	EXPECT_EQ(7, a0_.hijoDer().raiz());
+}
 
 /**
 1. Extiende la implementación de los arboles binarios con las siguientes operaciones
@@ -12,13 +44,26 @@
 		Es un error ejecutar esta operacion sobre una arbol vacio
 */
 
-TEST(TestArboles01, numNodos) {
-	ASSERT_EQ(4, 2+2);
+class TestArboles01 : public :: TestArboles {};
+
+/*TEST_F(TestArboles01, numNodos) {
+	EXPECT_EQ(3, a0_.numNodos());
+}*/
+
+TEST_F(TestArboles01, esHoja) {
+	EXPECT_TRUE(a0_.hijoDer().esHoja());
+	EXPECT_FALSE(a0_.hijoIz().esHoja());
 }
 
 /** 
 2. Implementa las mismas operaciones del ejercicio anterior pero como funciones externas al TAD
 */
+
+class TestArboles02 : public :: TestArboles {};
+
+TEST_F(TestArboles02, numNodos) {
+	EXPECT_EQ(1, ej02::numNodos(hoja_));
+}
 
 /**
 3.	Implementa una función recursiva template <class T> void printArbol(const Arbin<T> &arbol);

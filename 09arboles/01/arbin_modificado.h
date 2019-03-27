@@ -89,7 +89,7 @@ class Arbin {
 	   */	  
       Arbin hijoIz() const {  
 		if(_ra == NULL) {
-	      throw EArbolVacio();   hijoDer
+	      throw EArbolVacio();
         }
         return Arbin(_ra->_iz);
         }  
@@ -121,14 +121,14 @@ class Arbin {
       */
       unsigned numNodos() const {
       	if (_ra == NULL) return 0;
-      	else return 1 + _ra->iz->numNodos() + _ra->dr->numNodos();
+      	else return 1 + _ra->_iz->numNodos() + _ra->_dr.numNodos();
       }
 
       /** Devuelve cierto si el arbol es una hoja
       	@return true si el arbol es una hoja
       	*/
       bool esHoja() const {
-      	return _ra-> iz == NULL && _ra->dr == NULL;
+      	return _ra->_iz == NULL && _ra->_dr == NULL;
       }
 
       /** Devuelve la talla del arbol
@@ -137,9 +137,9 @@ class Arbin {
       	*/
       unsigned talla() const {
       	if (esHoja()) return 1;
-      	else if (_ra->dr == NULL) return 1 + talla(_ra->iz);
-      	else if (_ra->iz == NULL) return 1 + talla(_ra->dr);
-      	else return 1 + max(talla(_ra->iz), talla(_ra->dr));
+      	else if (_ra->_dr == NULL) return 1 + talla(_ra->_iz);
+      	else if (_ra->_iz == NULL) return 1 + talla(_ra->_dr);
+      	else return 1 + max(talla(_ra->_iz), talla(_ra->_dr));
       }
 
 	  
