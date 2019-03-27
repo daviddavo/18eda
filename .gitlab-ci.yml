@@ -20,12 +20,13 @@ build:
         - cd build
         - cmake ..
         - make
-        - ./testArboles
 
 test arboles:
   stage: test
   tags:
     - docker
+  before_script:
+    - apk add clang
   script:
     - ls -lh
     - ls -lh build
