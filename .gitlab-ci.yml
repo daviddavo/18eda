@@ -26,5 +26,6 @@ test arboles:
   tags:
     - docker
   script:
+    - ls -lh
     - ls -lh build
     - build/testArboles
