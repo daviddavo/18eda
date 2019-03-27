@@ -12,7 +12,7 @@ build:
         - build
     artifacts:
       paths:
-        - build
+        - build/test*
     before_script:
         - apk add git python python3 gcc g++ clang make cmake
     script:
@@ -21,6 +21,7 @@ build:
         - cmake ..
         - make
         - make test
+        - ./testArboles
 
 test arboles:
   stage: test
