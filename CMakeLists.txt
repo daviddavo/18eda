@@ -14,18 +14,18 @@ endif()
 # Configure google-test as a downloadable library.
 include(External_GTest.cmake)
 
-add_executable(myTests
+add_executable(testArboles
     09arboles/test.cpp)
 
 # This will automatically handle all of the lib linkage and include dirs
-target_link_libraries(myTests
+target_link_libraries(testArboles
     ${GTEST_LIBRARY}
 )
 
 # Tell ctest about my tests
 include(GoogleTest)
 gtest_add_tests(
-    TARGET      myTests
+    TARGET      testArboles
     TEST_LIST   myTests_targets
 )
 
