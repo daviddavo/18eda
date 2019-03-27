@@ -12,7 +12,7 @@ build:
         - build
     artifacts:
       paths:
-        - build testArboles
+        - build/testArboles
     before_script:
         - apk add git python python3 gcc g++ clang make cmake
     script:
