@@ -2,7 +2,6 @@
 
 TEST(TestingTest, Suma) {
 	ASSERT_EQ(4, 2+2);
-	ASSERT_EQ(5, 2+2);
 }
 
 int main(int argc, char **argv) {
