@@ -29,6 +29,4 @@ test arboles:
   before_script:
     - apk add clang
   script:
-    - ls -lh
-    - ls -lh build
     - build/testArboles
