@@ -23,6 +23,7 @@ build:
 
 test arboles:
   stage: test
+  image: alpine
   tags:
     - docker
   before_script:
