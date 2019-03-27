@@ -1,59 +1,27 @@
-cmake_minimum_required(VERSION 2.6)
+# Assuming this your tests/CMakeLists.txt (and your libs are setup in a root config)
+# Just make sure to include(CTest) in your *root* cmake config.
 
-# Locate GTest
-# find_package(GTest REQUIRED)
-# find_package(Threads REQUIRED)
+# 3.9 adds support for "GoogleTest" which enumerates the tests inside
+# of the code and adds them to ctest.
+cmake_minimum_required(VERSION 3.9)
 
-include(ExternalProject)
+# Configure google-test as a downloadable library.
+include(External_GTest.cmake)
 
-# Download and install GoogleTest
-ExternalProject_Add(
-    gtest
-    URL https://github.com/google/googletest/archive/master.zip
-    PREFIX ${CMAKE_CURRENT_BINARY_DIR}/gtest
-    # Disable install step
-    INSTALL_COMMAND ""
+add_executable(myTests
+    09arboles/test.cpp)
+
+# This will automatically handle all of the lib linkage and include dirs
+target_link_libraries(myTests
+    ${GTEST_LIBRARY}
 )
 
-ExternalProject_Get_Property(gtest source_dir binary_dir)
-
-# Create a libgtest target to be used as a dependency by test programs
-add_library(libgtest IMPORTED STATIC GLOBAL)
-add_dependencies(libgtest gtest)
-
-
-# Set libgtest properties
-set_target_properties(libgtest PROPERTIES
-    "IMPORTED_LOCATION" "${binary_dir}/googlemock/gtest/libgtest.a"
-    "IMPORTED_LINK_INTERFACE_LIBRARIES" "${CMAKE_THREAD_LIBS_INIT}"
+# Tell ctest about my tests
+include(GoogleTest)
+gtest_add_tests(
+    TARGET      myTests
+    TEST_LIST   myTests_targets
 )
 
-# Create a libgmock target to be used as a dependency by test programs
-add_library(libgmock IMPORTED STATIC GLOBAL)
-add_dependencies(libgmock gtest)
-
-# Set libgmock properties
-set_target_properties(libgmock PROPERTIES
-    "IMPORTED_LOCATION" "${binary_dir}/googlemock/libgmock.a"
-    "IMPORTED_LINK_INTERFACE_LIBRARIES" "${CMAKE_THREAD_LIBS_INIT}"
-)
-
-# I couldn't make it work with INTERFACE_INCLUDE_DIRECTORIES
-include_directories("${source_dir}/googletest/include"
-                    "${source_dir}/googlemock/include")
-
-# include_directories(${GTEST_INCLUDE_DIRS})
-enable_testing()
- 
-# Link runTests with what we want to test and the GTest and pthread library
-file(GLOB_RECURSE test_SRC "*test.cpp")
-set(test_SRC
-    "09arboles/test"
-)
-
-foreach(test IN LISTS test_SRC)
-    message(STATUS ${test})
-    add_executable(${test}.out ${test}.cpp)
-    target_link_libraries(${test}.out ${GTEST_LIBRARIES} pthread)
-    add_test( ${test} ${test}.out ) 
-endforeach()
+# set each target to timeout if not finished within 10 sec
+set_tests_properties(${myTests_targets} PROPERTIES TIMEOUT 10)
