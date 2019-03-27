@@ -27,4 +27,4 @@ test arboles:
     - docker
   script:
     - ls -lh build
-    - ./testArboles
+    - build/testArboles
