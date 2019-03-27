@@ -47,3 +47,4 @@ googletest-download
 googletest-build
 googletest-src
 gtest
+build*
