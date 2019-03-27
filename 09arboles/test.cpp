@@ -11,12 +11,12 @@ class TestArboles : public :: testing::Test {
 			a0_ = Arbin<int>(
 				Arbin<int>(
 					Arbin<int> (
-						Arbin<int>(),
+						Arbin<int>(6),
 						3,
-						Arbin<int>()
+						Arbin<int>(8)
 					),
 					2,
-					Arbin<int> ()
+					Arbin<int> (4)
 				),
 				0,
 				Arbin<int>(Arbin<int>(7))
@@ -63,6 +63,22 @@ class TestArboles02 : public :: TestArboles {};
 
 TEST_F(TestArboles02, numNodos) {
 	EXPECT_EQ(1, ej02::numNodos(hoja_));
+    EXPECT_EQ(7, ej02::numNodos(a0_));
+}
+
+TEST_F(TestArboles02, esHoja) {
+    EXPECT_TRUE(ej02::esHoja(hoja_));
+    EXPECT_FALSE(ej02::esHoja(a0_));
+}
+
+TEST_F(TestArboles02, numHojas) {
+    EXPECT_EQ(1, ej02::numHojas(hoja_));
+    EXPECT_EQ(4, ej02::numHojas(a0_));
+}
+
+TEST_F(TestArboles02, talla) {
+    EXPECT_EQ(1, ej02::talla(hoja_));
+    EXPECT_EQ(4, ej02::talla(a0_));
 }
 
 /**
