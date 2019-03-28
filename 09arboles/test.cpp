@@ -4,10 +4,12 @@
 // #include "01/arbin_modificado.h"
 #include "02/ej02.h"
 #include "03/ej03.h"
+#include "c06/c06.h"
 
 class TestArboles : public :: testing::Test {
 	protected :
 		Arbin<int> a0_;
+        Arbin<int> a1_; // From c06
         Arbin<int> a0Espejo_;
 		Arbin<int> hoja_;
         Arbin<int> vacio_;
@@ -38,6 +40,16 @@ class TestArboles : public :: testing::Test {
                         3,
                         Arbin<int>(6)
                     )
+                )
+            );
+
+            a1_ = Arbin<int>(
+                Arbin<int>(2),
+                1,
+                Arbin<int>(
+                    Arbin<int>(4),
+                    3,
+                    Arbin<int>(5)
                 )
             );
 
@@ -137,6 +149,28 @@ class TestArboles03 : public :: TestArboles {
 protected:
 
 };
+
+class TestArbolesC06 : public :: TestArboles {};
+
+TEST_F(TestArbolesC06, numeroHojasMasProfundasQue) {
+    EXPECT_EQ(0, numero_hojas_mas_profundas_que(vacio_, 0));
+    EXPECT_EQ(0, numero_hojas_mas_profundas_que(vacio_, 1));
+    EXPECT_EQ(0, numero_hojas_mas_profundas_que(vacio_, 2));
+
+    EXPECT_EQ(1, numero_hojas_mas_profundas_que(hoja_, 0));
+    EXPECT_EQ(0, numero_hojas_mas_profundas_que(hoja_, 1));
+
+    EXPECT_EQ(0 , numero_hojas_mas_profundas_que(a0_, 4));
+    EXPECT_EQ(2 , numero_hojas_mas_profundas_que(a0_, 3));
+    EXPECT_EQ(3 , numero_hojas_mas_profundas_que(a0_, 2));
+    EXPECT_EQ(4 , numero_hojas_mas_profundas_que(a0_, 1));
+
+    // Enunciado de C06
+    EXPECT_EQ(3, numero_hojas_mas_profundas_que(a1_, 0));
+    EXPECT_EQ(3, numero_hojas_mas_profundas_que(a1_, 1));
+    EXPECT_EQ(2, numero_hojas_mas_profundas_que(a1_, 2));
+    EXPECT_EQ(0, numero_hojas_mas_profundas_que(a1_, 3));
+}
 
 TEST_F(TestArboles03, print) {
     stringstream ss;
