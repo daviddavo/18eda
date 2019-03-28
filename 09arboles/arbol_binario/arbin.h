@@ -1,5 +1,4 @@
-/** ADT Arbin: árboles binarios.
- @file Arbin.h */
+/** ADT Arbin: árboles binarios. */
 
 #ifndef __ARBIN_H
 #define __ARBIN_H
@@ -127,6 +126,10 @@ class Arbin {
         return sonIguales(_ra, a._ra); 
       }
 
+      bool operator!=(const Arbin& a) const {  
+        return !sonIguales(_ra, a._ra); 
+      }
+
 	  /** Operador de asignación
 
           @param el árbol que quiere asignarse al receptor
@@ -245,8 +248,6 @@ class Arbin {
 	 Nodo* _ra; // puntero al nodo raíz
 	 	  
 };
-
-
 
 #endif
 
