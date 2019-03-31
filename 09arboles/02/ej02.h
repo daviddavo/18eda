@@ -31,7 +31,7 @@ namespace ej02 {
     const Arbin<T> espejo(const Arbin<T> & arb) {
         if (esHoja(arb)) return Arbin<T>(arb);
 
-        return Arbin<T>(arb.hijoDer(), arb.raiz(), arb.hijoIz());
+        return Arbin<T>(espejo(arb.hijoDer()), arb.raiz(), espejo(arb.hijoIz()));
     }
 }
 
