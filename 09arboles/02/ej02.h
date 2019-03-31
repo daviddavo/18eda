@@ -17,6 +17,7 @@ namespace ej02 {
 
     template <class T>
     unsigned numHojas (const Arbin<T> & arb) {
+        if (arb.esVacio()) return 0;
         if (esHoja(arb)) return 1;
         else return numHojas(arb.hijoIz()) + numHojas(arb.hijoDer());
     }

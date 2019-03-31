@@ -1,7 +1,7 @@
 #include <sstream>
 #include <string>
 #include "gtest/gtest.h"
-// #include "01/arbin_modificado.h"
+#include "01/ej01.h"
 #include "02/ej02.h"
 #include "03/ej03.h"
 #include "c06/c06.h"
@@ -96,9 +96,23 @@ TEST_F(TestArboles00, equ) {
 
 class TestArboles01 : public :: TestArboles {};
 
-/*TEST_F(TestArboles01, numNodos) {
-	EXPECT_EQ(3, a0_.numNodos());
-}*/
+TEST_F(TestArboles01, numNodos) {
+    EXPECT_EQ(1, ej01::ArbinMejorado<int>(hoja_).numNodos());
+    EXPECT_EQ(7, ej01::ArbinMejorado<int>(a0_).numNodos());
+    EXPECT_EQ(0, ej01::ArbinMejorado<int>(vacio_).numNodos());
+}
+
+TEST_F(TestArboles01, esHoja) {
+    EXPECT_THROW(ej01::ArbinMejorado<int>(vacio_).esHoja(), EArbolVacio);
+    EXPECT_TRUE(ej01::ArbinMejorado<int>(hoja_).esHoja());
+    EXPECT_FALSE(ej02::esHoja(a0_));
+}
+
+TEST_F(TestArboles01, numHojas) {
+    EXPECT_EQ(1, ej01::ArbinMejorado<int>(hoja_).numHojas());
+    EXPECT_EQ(4, ej01::ArbinMejorado<int>(a0_).numHojas());
+    EXPECT_EQ(0, ej01::ArbinMejorado<int>(vacio_).numHojas());
+}
 
 /** 
 2. Implementa las mismas operaciones del ejercicio anterior pero como funciones externas al TAD
@@ -121,6 +135,7 @@ TEST_F(TestArboles02, esHoja) {
 TEST_F(TestArboles02, numHojas) {
     EXPECT_EQ(1, ej02::numHojas(hoja_));
     EXPECT_EQ(4, ej02::numHojas(a0_));
+    EXPECT_EQ(0, ej02::numHojas(vacio_));
 }
 
 TEST_F(TestArboles02, talla) {
@@ -152,10 +167,8 @@ TEST_F(TestArboles02, minElem) {
 */
 
 // TODO: Parametrizar este test
-class TestArboles03 : public :: TestArboles {
-protected:
 
-};
+class TestArboles03 : public :: TestArboles {};
 
 TEST_F(TestArboles03, print) {
     stringstream ss;
@@ -165,6 +178,10 @@ TEST_F(TestArboles03, print) {
     ss.str("");
     ej03::printArbol(hoja_, ss);
     EXPECT_EQ("5\n", ss.str());
+
+    ss.str("");
+    ej03::printArbol(a0_, ss);
+    EXPECT_EQ("0\n   2\n      3\n         6\n         8\n      4\n   7\n", ss.str());
 }
 
 class TestArbolesC06 : public :: TestArboles {};

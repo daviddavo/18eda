@@ -160,7 +160,7 @@ class Arbin {
         libera(_ra);	
       }
 	  
-   private:
+   protected:
        /** 
 	    Clase Nodo que almacena internamente un nodo de un árbol. Para ello
 		almacena: (i) el valor del nodo, (ii) un puntero al nodo raíz del árbol
