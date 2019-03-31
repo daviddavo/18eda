@@ -134,6 +134,13 @@ TEST_F(TestArboles02, espejo) {
     EXPECT_EQ(a0_, ej02::espejo(ej02::espejo(a0_)));
 }
 
+TEST_F(TestArboles02, minElem) {
+    EXPECT_THROW(ej02::minElem(vacio_), EArbolVacio);
+    EXPECT_EQ(0, ej02::minElem(a0_));
+    EXPECT_EQ(1, ej02::minElem(a1_));
+    EXPECT_EQ(5, ej02::minElem(hoja_));
+}
+
 /**
 3.	Implementa una función recursiva template <class T> void printArbol(const Arbin<T> &arbol);
 	que escriba por pantalla el arbol que recibe por parametro, segun las siguientes reglas:
@@ -149,6 +156,16 @@ class TestArboles03 : public :: TestArboles {
 protected:
 
 };
+
+TEST_F(TestArboles03, print) {
+    stringstream ss;
+    ej03::printArbol(vacio_, ss);
+    EXPECT_EQ("<vacio>\n", ss.str());
+    
+    ss.str("");
+    ej03::printArbol(hoja_, ss);
+    EXPECT_EQ("5\n", ss.str());
+}
 
 class TestArbolesC06 : public :: TestArboles {};
 
@@ -170,16 +187,6 @@ TEST_F(TestArbolesC06, numeroHojasMasProfundasQue) {
     EXPECT_EQ(3, numero_hojas_mas_profundas_que(a1_, 1));
     EXPECT_EQ(2, numero_hojas_mas_profundas_que(a1_, 2));
     EXPECT_EQ(0, numero_hojas_mas_profundas_que(a1_, 3));
-}
-
-TEST_F(TestArboles03, print) {
-    stringstream ss;
-    ej03::printArbol(vacio_, ss);
-    EXPECT_EQ("<vacio>\n", ss.str());
-    
-    ss.str("");
-    ej03::printArbol(hoja_, ss);
-    EXPECT_EQ("5\n", ss.str());
 }
 
 int main(int argc, char **argv) {

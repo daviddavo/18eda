@@ -33,6 +33,14 @@ namespace ej02 {
 
         return Arbin<T>(espejo(arb.hijoDer()), arb.raiz(), espejo(arb.hijoIz()));
     }
+
+    template <class T>
+    const T& minElem(const Arbin<T> & arb) {
+        if (arb.esVacio()) throw EArbolVacio();
+        if (esHoja(arb)) return arb.raiz();
+        T minHijos = min(minElem(arb.hijoIz()), minElem(arb.hijoDer()));
+        return min(arb.raiz(), minHijos);
+    }
 }
 
 #endif
