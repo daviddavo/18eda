@@ -120,6 +120,19 @@ TEST_F(TestArboles01, talla) {
 	EXPECT_EQ(4, ej01::ArbinMejorado<int>(a0_).talla());
 }
 
+TEST_F(TestArboles01, espejo) {
+	EXPECT_EQ(ej01::ArbinMejorado<int>(a0_).espejo(), a0Espejo_);
+    EXPECT_EQ(a0_, ej01::ArbinMejorado<int>(a0Espejo_).espejo());
+    EXPECT_EQ(a0_, ej01::ArbinMejorado<int>(a0_).espejo().espejo());
+}
+
+TEST_F(TestArboles01, minElem) {
+	EXPECT_THROW(ej01::ArbinMejorado<int>(vacio_).minElem(), EArbolVacio);
+	EXPECT_EQ(0, ej01::ArbinMejorado<int>(a0_).minElem());
+	EXPECT_EQ(1, ej01::ArbinMejorado<int>(a1_).minElem());
+	EXPECT_EQ(5, ej01::ArbinMejorado<int>(hoja_).minElem());
+}
+
 /** 
 2. Implementa las mismas operaciones del ejercicio anterior pero como funciones externas al TAD
 */

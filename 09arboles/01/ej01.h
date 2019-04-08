@@ -37,6 +37,14 @@ namespace ej01 {
         const unsigned talla() {
             return talla(this->_ra);
         }
+
+        ArbinMejorado<T> espejo() {
+            return Arbin<T>();
+        }
+
+        const T minElem() {
+            return minElem(this->_ra);
+        }
     protected:
         const unsigned numNodos(const typename Arbin<T>::Nodo * ra) {
             if (ra == NULL) return 0;
@@ -58,6 +66,12 @@ namespace ej01 {
             if (ra == NULL) return 0;
             if (esHoja(ra)) return 1;
             return 1 + max(talla(ra->_iz), talla(ra->_dr));
+        }
+
+        const T minElem(const typename Arbin<T>::Nodo * ra) {
+            if (ra->_elem == NULL) throw EArbolVacio();
+            if (esHoja(ra)) return ra->_elem;
+            else return min(minElem(ra->_iz), minElem(ra->_dr));
         }
     };
 }
