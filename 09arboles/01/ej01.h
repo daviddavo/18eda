@@ -33,6 +33,10 @@ namespace ej01 {
         const unsigned numHojas() {
             return numHojas(this->_ra);
         }
+
+        const unsigned talla() {
+            return talla(this->_ra);
+        }
     protected:
         const unsigned numNodos(const typename Arbin<T>::Nodo * ra) {
             if (ra == NULL) return 0;
@@ -48,6 +52,12 @@ namespace ej01 {
             if (ra == NULL) return 0;
             if (esHoja(ra)) return 1;
             return numHojas(ra->_iz) + numHojas(ra->_dr);
+        }
+
+        const unsigned talla(const typename Arbin<T>::Nodo * ra) {
+            if (ra == NULL) return 0;
+            if (esHoja(ra)) return 1;
+            return 1 + max(talla(ra->_iz), talla(ra->_dr));
         }
     };
 }

@@ -24,6 +24,7 @@ namespace ej02 {
 
     template <class T>
     unsigned talla(const Arbin<T> & arb) {
+    	if (arb.esVacio()) return 0;
         if (esHoja(arb)) return 1;
         else return 1 + max(talla(arb.hijoIz()), talla(arb.hijoDer()));
     }

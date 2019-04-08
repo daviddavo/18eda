@@ -114,6 +114,12 @@ TEST_F(TestArboles01, numHojas) {
     EXPECT_EQ(0, ej01::ArbinMejorado<int>(vacio_).numHojas());
 }
 
+TEST_F(TestArboles01, talla) {
+	EXPECT_EQ(0, ej01::ArbinMejorado<int>(vacio_).talla());
+	EXPECT_EQ(1, ej01::ArbinMejorado<int>(hoja_).talla());
+	EXPECT_EQ(4, ej01::ArbinMejorado<int>(a0_).talla());
+}
+
 /** 
 2. Implementa las mismas operaciones del ejercicio anterior pero como funciones externas al TAD
 */
@@ -139,6 +145,7 @@ TEST_F(TestArboles02, numHojas) {
 }
 
 TEST_F(TestArboles02, talla) {
+	EXPECT_EQ(0, ej02::talla(vacio_));
     EXPECT_EQ(1, ej02::talla(hoja_));
     EXPECT_EQ(4, ej02::talla(a0_));
 }
