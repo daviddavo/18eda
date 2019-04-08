@@ -5,6 +5,7 @@
 #include "02/ej02.h"
 #include "03/ej03.h"
 #include "c06/c06.h"
+#include "c07/c07.h"
 
 class TestArboles : public :: testing::Test {
 	protected :
@@ -63,7 +64,7 @@ class TestArboles00 : public :: TestArboles {};
 
 TEST_F(TestArboles00, raiz) {
 	EXPECT_EQ(0, a0_.raiz());
-	EXPECT_EQ(7, a0_.hijoDer().raiz());
+	EXPECT_EQ(7, a0_.hijoDer().raiz()); 
     EXPECT_EQ(5, hoja_.raiz());
     ASSERT_THROW(vacio_.raiz(), EArbolVacio);
 }
@@ -224,6 +225,13 @@ TEST_F(TestArbolesC06, numeroHojasMasProfundasQue) {
     EXPECT_EQ(3, numero_hojas_mas_profundas_que(a1_, 1));
     EXPECT_EQ(2, numero_hojas_mas_profundas_que(a1_, 2));
     EXPECT_EQ(0, numero_hojas_mas_profundas_que(a1_, 3));
+}
+
+class TestArbolesC07 : public :: TestArboles {};
+
+TEST_F(TestArbolesC07, numeroSingulares) {
+	EXPECT_EQ(0, numero_singulares(vacio_));
+	EXPECT_EQ(1, numero_singulares(hoja_));
 }
 
 int main(int argc, char **argv) {

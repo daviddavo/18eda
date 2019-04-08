@@ -19,12 +19,14 @@ target_include_directories(arbin INTERFACE 09arboles/arbol_binario)
 add_executable(testArboles
     09arboles/test.cpp)
 add_executable(c06 09arboles/c06/c06.cpp)
+add_executable(c07 09arboles/c07/c07.cpp)
 
 # This will automatically handle all of the lib linkage and include dirs
 target_link_libraries(testArboles
     ${GTEST_LIBRARY} arbin
 )
 target_link_libraries(c06 arbin)
+target_link_libraries(c07 arbin)
 
 # Tell ctest about my tests
 enable_testing()

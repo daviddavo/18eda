@@ -69,9 +69,9 @@ namespace ej01 {
         }
 
         const T minElem(const typename Arbin<T>::Nodo * ra) {
-            if (ra->_elem == NULL) throw EArbolVacio();
+            if (ra == NULL) throw EArbolVacio();
             if (esHoja(ra)) return ra->_elem;
-            else return min(minElem(ra->_iz), minElem(ra->_dr));
+            else return min(ra->_elem, min(minElem(ra->_iz), minElem(ra->_dr)));
         }
     };
 }
