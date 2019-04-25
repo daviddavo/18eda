@@ -1,7 +1,7 @@
 #include <sstream>
 #include <string>
 #include "gtest/gtest.h"
-#include "01/ej01.h"
+// #include "01/ej01.h"
 #include "02/ej02.h"
 #include "03/ej03.h"
 #include "c06/c06.h"
@@ -95,6 +95,7 @@ TEST_F(TestArboles00, equ) {
 		Es un error ejecutar esta operacion sobre una arbol vacio
 */
 
+/*
 class TestArboles01 : public :: TestArboles {};
 
 TEST_F(TestArboles01, numNodos) {
@@ -132,7 +133,7 @@ TEST_F(TestArboles01, minElem) {
 	EXPECT_EQ(0, ej01::ArbinMejorado<int>(a0_).minElem());
 	EXPECT_EQ(1, ej01::ArbinMejorado<int>(a1_).minElem());
 	EXPECT_EQ(5, ej01::ArbinMejorado<int>(hoja_).minElem());
-}
+}*/
 
 /** 
 2. Implementa las mismas operaciones del ejercicio anterior pero como funciones externas al TAD
