@@ -39,7 +39,9 @@ namespace ej01 {
         }
 
         ArbinMejorado<T> espejo() {
-            return Arbin<T>();
+            typename Arbin<T>::Nodo * aux = this->_ra;
+            espejo(aux);
+            return Arbin<T>(aux);
         }
 
         const T minElem() {
@@ -66,6 +68,11 @@ namespace ej01 {
             if (ra == NULL) return 0;
             if (esHoja(ra)) return 1;
             return 1 + max(talla(ra->_iz), talla(ra->_dr));
+        }
+
+        void espejo(const typename Arbin<T>::Nodo * ra) {
+            if (ra == NULL) throw EArbolVacio();
+            
         }
 
         const T minElem(const typename Arbin<T>::Nodo * ra) {
