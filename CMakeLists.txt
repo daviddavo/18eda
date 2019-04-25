@@ -13,20 +13,28 @@ endif()
 
 # Configure google-test as a downloadable library.
 include(External_GTest.cmake)
-add_library(arbin INTERFACE)
-target_include_directories(arbin INTERFACE 09arboles/arbol_binario)
 
-add_executable(testArboles
-    09arboles/test.cpp)
+add_library(lineales INTERFACE)
+add_library(arbin INTERFACE)
+add_library(dict INTERFACE)
+
+# 08lineales/cola 08lineales/dcola 08lineales/pila
+target_include_directories(lineales INTERFACE 08lineales/lista/nodos_doblemente_enlazados 08lineales/pila/nodos_enlazados)
+target_include_directories(arbin INTERFACE 09arboles/arbol_binario)
+target_include_directories(dict INTERFACE 10diccionarios/arbol_busqueda 10diccionarios/hash_table)
+
+add_executable(testArboles 09arboles/test.cpp)
+add_executable(testDiccionarios 10diccionarios/test.cpp)
 add_executable(c06 09arboles/c06/c06.cpp)
 add_executable(c07 09arboles/c07/c07.cpp)
+add_executable(c08 10diccionarios/c08/c08.cpp)
 
 # This will automatically handle all of the lib linkage and include dirs
-target_link_libraries(testArboles
-    ${GTEST_LIBRARY} arbin
-)
+target_link_libraries(testArboles ${GTEST_LIBRARY} arbin)
+target_link_libraries(testDiccionarios ${GTEST_LIBRARY} dict lineales)
 target_link_libraries(c06 arbin)
 target_link_libraries(c07 arbin)
+target_link_libraries(c08 lineales dict)
 
 # Tell ctest about my tests
 enable_testing()

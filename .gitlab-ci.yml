@@ -30,3 +30,13 @@ test arboles:
     - apk add clang
   script:
     - build/testArboles
+
+test diccionarios:
+  stage: test
+  image: alpine
+  tags:
+    - docker
+  before_script:
+    - apk add clang
+  script:
+    - build/testDiccionarios
