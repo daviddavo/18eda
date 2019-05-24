@@ -25,6 +25,7 @@ target_include_directories(dict INTERFACE 10diccionarios/arbol_busqueda 10diccio
 
 add_executable(testArboles 09arboles/test.cpp)
 add_executable(testDiccionarios 10diccionarios/test.cpp)
+
 add_executable(c06 09arboles/c06/c06.cpp)
 add_executable(c07 09arboles/c07/c07.cpp)
 add_executable(c08 10diccionarios/c08/c08.cpp)
