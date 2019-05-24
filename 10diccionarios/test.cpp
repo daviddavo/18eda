@@ -1,8 +1,10 @@
 #include <sstream>
 #include <string>
 #include "gtest/gtest.h"
+#include <iostream>
 
 #include "c08/c08.h"
+using namespace std;
 
 class TestDiccionarios : public :: testing::Test {
 	protected :
@@ -29,11 +31,12 @@ TEST_F(TestDiccionariosC08, integrity) {
 		Lista <string> bien = Lista<string>(), mal = Lista<string>();
 		Lista <Puntuacion> listado = Lista<Puntuacion>();
 		stringstream ssinput, ssoutput;
-		ssinput.str(input[i]);
+		ssinput << input[i] << endl;
+
 		leeResultados(ssinput, bien, mal);
 		califica(bien, mal, listado);
 		imprimePuntuaciones(ssoutput, listado);
-		EXPECT_EQ(ssoutput.str(), output[i]);
+		EXPECT_EQ(output[i], ssoutput.str());
 	}
 }
 
