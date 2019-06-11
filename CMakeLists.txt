@@ -23,6 +23,7 @@ target_include_directories(lineales INTERFACE 08lineales/lista/nodos_doblemente_
 target_include_directories(arbin INTERFACE 09arboles/arbol_binario)
 target_include_directories(dict INTERFACE 10diccionarios/arbol_busqueda 10diccionarios/hash_table)
 
+add_executable(testLineales 08lineales/test.cpp)
 add_executable(testArboles 09arboles/test.cpp)
 add_executable(testDiccionarios 10diccionarios/test.cpp)
 
@@ -31,6 +32,7 @@ add_executable(c07 09arboles/c07/c07.cpp)
 add_executable(c08 10diccionarios/c08/c08.cpp)
 
 # This will automatically handle all of the lib linkage and include dirs
+target_link_libraries(testLineales ${GTEST_LIBRARY} lineales)
 target_link_libraries(testArboles ${GTEST_LIBRARY} arbin)
 target_link_libraries(testDiccionarios ${GTEST_LIBRARY} dict lineales)
 target_link_libraries(c06 arbin)

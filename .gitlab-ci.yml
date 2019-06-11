@@ -21,6 +21,16 @@ build:
         - cmake ..
         - make
 
+test lineales:
+  stage: test
+  image: alpine
+  tags:
+    - docker
+  before_script:
+    - apk add clang
+  script:
+    - build/testLineales
+
 test arboles:
   stage: test
   image: alpine
