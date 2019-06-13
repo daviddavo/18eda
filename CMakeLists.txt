@@ -43,8 +43,18 @@ target_link_libraries(c08 lineales dict)
 enable_testing()
 include(GoogleTest)
 gtest_add_tests(
-    TARGET      testArboles
+    TARGET      testLineales
     TEST_LIST   myTests_targets
+)
+
+gtest_add_tests(
+    TARGET testArboles
+    TEST_LIST myTests_targets
+)
+
+gtest_add_tests(
+    TARGET  testDiccionarios
+    TEST_LIST myTests_targets
 )
 
 # set each target to timeout if not finished within 10 sec
