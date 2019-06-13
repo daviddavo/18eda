@@ -12,15 +12,15 @@ class TestDiccionarios : public :: testing::Test {
 		vector <string> output;
 
 		void SetUp() override {
-			input.push_back("# jose + jose - jose - lucas + pedro - lucas - #");
-			input.push_back("# jose + jose - jose - jose + #");
-			input.push_back("# #");
-			input.push_back("# jose - juan + juan + #");
+			input.push_back("jose + jose - jose - lucas + pedro - lucas - #");
+			input.push_back("jose + jose - jose - jose + #");
+			input.push_back("#");
+			input.push_back("jose - juan + juan + #");
 
 			output.push_back("[jose:-1][pedro:-1]");
+			output.push_back("");
+			output.push_back("");
 			output.push_back("[jose:-1][juan:2]");
-			output.push_back("");
-			output.push_back("");
 		}
 };
 
