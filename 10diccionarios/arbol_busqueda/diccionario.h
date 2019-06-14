@@ -1,14 +1,14 @@
 /**
   @file diccionario.h
 
-  Implementación dinámica del TAD Diccionario utilizando
-  árboles de búsqueda.
+  Implementaciï¿½n dinï¿½mica del TAD Diccionario utilizando
+  ï¿½rboles de bï¿½squeda.
 
   Estructura de Datos y Algoritmos
-  Facultad de Informática
+  Facultad de Informï¿½tica
   Universidad Complutense de Madrid
 
- (c) Marco Antonio Gómez Martín, 2012;  Mercedes Gómez y José Luis Sierra, 2017
+ (c) Marco Antonio Gï¿½mez Martï¿½n, 2012;  Mercedes Gï¿½mez y Josï¿½ Luis Sierra, 2017
 */
 
 #ifndef __DICCIO_H
@@ -21,38 +21,38 @@ using namespace std;
 
 
 /**
- Implementación dinámica del TAD Diccionario utilizando 
- árboles de búsqueda (no auto-balanceados).
+ ImplementaciÃ³n dinÃ¡mica del TAD Diccionario utilizando 
+ Ã¡rboles de bÃºsqueda (no auto-balanceados).
 
  Las operaciones son:
 
- - diccionarioVacio: operación generadora que construye
- un diccionario vacío.
+ - diccionarioVacio: operaciï¿½n generadora que construye
+ un diccionario vacï¿½o.
 
- - inserta(clave, valor): modificadora que añade una 
+ - inserta(clave, valor): modificadora que aï¿½ade una 
  nueva pareja (clave, valor) al diccionario. Si la
  clave ya estaba se sustituye el valor.
 
- - borra(clave): operación modificadora. Elimina la
- clave del diccionario.  Si la clave no está,
- la operación no tiene efecto.
+ - borra(clave): operaciï¿½n modificadora. Elimina la
+ clave del diccionario.  Si la clave no estï¿½,
+ la operaciï¿½n no tiene efecto.
 
- - valorDe(clave): operación observadora que devuelve
+ - valorDe(clave): operaciï¿½n observadora que devuelve
  el valor asociado a una clave. Es un error preguntar
  por una clave que no existe.
 
- - contiene(clave): operación observadora. Sirve para
+ - contiene(clave): operaciï¿½n observadora. Sirve para
  averiguar si se ha introducido una clave en el diccionario.
 
  - esVacio(): operacion observadora que indica si
  el diccionario tiene alguna clave introducida.
 
- @author Marco Antonio Gómez Martín ( con ligeras adaptaciones de Mercedes Gómez y José Luis Sierra)
+ @author Marco Antonio GÃ³mez MartÃ­n ( con ligeras adaptaciones de Mercedes GÃ³mez y Jose Luis Sierra)
  */
 
 
 
-/// Excepciones generadas por algunos métodos
+/// Excepciones generadas por algunos mï¿½todos
 class EClaveErronea {};
 
 class EAccesoNoValido{};
@@ -82,9 +82,9 @@ private:
 
 
 	/**
-	Elimina todos los nodos de una estructura arbórea
+	Elimina todos los nodos de una estructura arbï¿½rea
 	que comienza con el puntero ra.
-	Se admite que el nodo sea NULL (no habrá nada que
+	Se admite que el nodo sea NULL (no habrï¿½ nada que
 	liberar).
 	*/
 	static void libera(Nodo *ra) {
@@ -96,9 +96,9 @@ private:
 	}
 
 	/**
-	Copia la estructura jerárquica de nodos pasada
-	como parámetro (puntero a su raiz) y devuelve un
-	puntero a una nueva estructura jerárquica, copia
+	Copia la estructura jerï¿½rquica de nodos pasada
+	como parï¿½metro (puntero a su raiz) y devuelve un
+	puntero a una nueva estructura jerï¿½rquica, copia
 	de anterior.
 	*/
 	static Nodo *copia(Nodo *ra) {
@@ -111,10 +111,10 @@ private:
 	}
 
 	/**
-	Busca una clave en la estructura jerárquica de
-	nodos cuya raíz se pasa como parámetro, y devuelve
-	el nodo en la que se encuentra (o NULL si no está).
-	@param p Puntero a la raíz de la estructura de nodos
+	Busca una clave en la estructura jerï¿½rquica de
+	nodos cuya raï¿½z se pasa como parï¿½metro, y devuelve
+	el nodo en la que se encuentra (o NULL si no estï¿½).
+	@param p Puntero a la raï¿½z de la estructura de nodos
 	@param clave Clave a buscar
 	*/
 	static Nodo *buscaAux(Nodo *p, const tClave &clave) {
@@ -131,18 +131,18 @@ private:
 
 	/**
 	Inserta una pareja (clave, valor) en la estructura
-	jerárquica que comienza en el puntero pasado como parámetro.
-	Ese puntero se admite que sea NULL, por lo que se creará
-	un nuevo nodo que pasará a ser la nueva raíz de esa
-	estructura jerárquica. El método devuelve un puntero a la
-	raíz de la estructura modificada. En condiciones normales
-	coincidirá con el parámetro recibido; sólo cambiará si
-	la estructura era vacía.
-	@param clave Clave a insertar. Si ya aparecía en la
+	jerï¿½rquica que comienza en el puntero pasado como parï¿½metro.
+	Ese puntero se admite que sea NULL, por lo que se crearï¿½
+	un nuevo nodo que pasarï¿½ a ser la nueva raï¿½z de esa
+	estructura jerï¿½rquica. El mï¿½todo devuelve un puntero a la
+	raï¿½z de la estructura modificada. En condiciones normales
+	coincidirï¿½ con el parï¿½metro recibido; sï¿½lo cambiarï¿½ si
+	la estructura era vacï¿½a.
+	@param clave Clave a insertar. Si ya aparecï¿½a en la
 	estructura de nodos, se sobreescribe el valor.
 	@param valor Valor a insertar.
-	@param p Puntero al nodo raíz donde insertar la pareja.
-	@return Nueva raíz (o p si no cambia).
+	@param p Puntero al nodo raï¿½z donde insertar la pareja.
+	@return Nueva raï¿½z (o p si no cambia).
 	*/
 	static Nodo *insertaAux(const tClave &clave, const tValor &valor, Nodo *p) {
 
@@ -167,14 +167,14 @@ private:
 
 
 	/**
-	Elimina (si existe) la clave/valor de la estructura jerárquica
-	de nodos apuntada por p. Si la clave aparecía en la propia raíz,
-	ésta cambiará, por lo que se devuelve la nueva raíz. Si no cambia
+	Elimina (si existe) la clave/valor de la estructura jerï¿½rquica
+	de nodos apuntada por p. Si la clave aparecï¿½a en la propia raï¿½z,
+	ï¿½sta cambiarï¿½, por lo que se devuelve la nueva raï¿½z. Si no cambia
 	se devuelve p.
 
-	@param p Raíz de la estructura jerárquica donde borrar la clave.
+	@param p Raï¿½z de la estructura jerï¿½rquica donde borrar la clave.
 	@param clave Clave a borrar.
-	@return Nueva raíz de la estructura, tras el borrado. Si la raíz
+	@return Nueva raï¿½z de la estructura, tras el borrado. Si la raï¿½z
 	no cambia, se devuelve el propio p.
 	*/
 	static Nodo *borraAux(Nodo *p, const tClave &clave) {
@@ -198,27 +198,27 @@ private:
 
 
 	/**
-	Borra la raíz de la estructura jerárquica de nodos
-	y devuelve el puntero a la nueva raíz que garantiza
-	que la estructura sigue siendo válida para un árbol de
-	búsqueda (claves ordenadas).
+	Borra la raï¿½z de la estructura jerï¿½rquica de nodos
+	y devuelve el puntero a la nueva raï¿½z que garantiza
+	que la estructura sigue siendo vï¿½lida para un ï¿½rbol de
+	bï¿½squeda (claves ordenadas).
 	*/
 	static Nodo *borraRaiz(Nodo *p) {
 
 		Nodo *aux;
 
-		if (p->_iz == NULL) { // Si no hay hijo izquierdo, la raíz pasa a ser el hijo derecho
+		if (p->_iz == NULL) { // Si no hay hijo izquierdo, la raï¿½z pasa a ser el hijo derecho
 			aux = p->_dr;
 			delete p;
 			return aux;
 		}
 		else
-			if (p->_dr == NULL) { // Si no hay hijo derecho, la raíz pasa a ser el hijo izquierdo
+			if (p->_dr == NULL) { // Si no hay hijo derecho, la raï¿½z pasa a ser el hijo izquierdo
 				aux = p->_iz;
 				delete p;
 				return aux;
 			}
-			else { // La nueva raíz es el elemento más pequeño del hijo derecho (sucesor de la actual raíz)
+			else { // La nueva raï¿½z es el elemento mï¿½s pequeï¿½o del hijo derecho (sucesor de la actual raï¿½z)
 				return mueveMinYBorra(p);
 			}
 	}
@@ -226,24 +226,24 @@ private:
 
 
 	/**
-	Método auxiliar para el borrado; recibe un puntero a la
-	raíz a borrar. Busca el elemento más pequeño del hijo derecho
-	que se convertirá en la raíz (que devolverá), borra la antigua
-	raíz (p) y "cose" todos los punteros, de forma que ahora:
+	Mï¿½todo auxiliar para el borrado; recibe un puntero a la
+	raï¿½z a borrar. Busca el elemento mï¿½s pequeï¿½o del hijo derecho
+	que se convertirï¿½ en la raï¿½z (que devolverï¿½), borra la antigua
+	raï¿½z (p) y "cose" todos los punteros, de forma que ahora:
 
-	- El mínimo pasa a ser la raíz, cuyo hijo izquierdo y
-	derecho eran los hijos izquierdo y derecho de la raíz
+	- El mï¿½nimo pasa a ser la raï¿½z, cuyo hijo izquierdo y
+	derecho eran los hijos izquierdo y derecho de la raï¿½z
 	antigua.
-	- El hijo izquierdo del padre del elemento más pequeño
-	pasa a ser el antiguo hijo derecho de ese mínimo.
+	- El hijo izquierdo del padre del elemento mï¿½s pequeï¿½o
+	pasa a ser el antiguo hijo derecho de ese mï¿½nimo.
 	*/
 	static Nodo *mueveMinYBorra(Nodo *p) {
 
 		// Vamos bajando hasta que encontramos el elemento
-		// más pequeño (aquel que no tiene hijo izquierdo).
-		// Vamos guardando también el padre (que será null
+		// mï¿½s pequeï¿½o (aquel que no tiene hijo izquierdo).
+		// Vamos guardando tambiï¿½n el padre (que serï¿½ null
 		// si el hijo derecho es directamente el elemento
-		// más pequeño).
+		// mï¿½s pequeï¿½o).
 		Nodo *padre = NULL;
 		Nodo *aux = p->_dr;
 		while (aux->_iz != NULL) {
@@ -251,28 +251,28 @@ private:
 			aux = aux->_iz;
 		}
 
-		// aux apunta al elemento más pequeño.
+		// aux apunta al elemento mï¿½s pequeï¿½o.
 		// padre apunta a su padre (si el nodo es hijo izquierdo)
 
-		// Dos casos dependiendo de si el sucesor es la raíz
+		// Dos casos dependiendo de si el sucesor es la raï¿½z
 		// del hijo derecho del nodo a borrar (=> padre == NULL) o no (=> padre != NULL)
 		// 
-		if (padre != NULL) {  // el sucesor no es la raíz del subarbol derecho sino un nodo más profundo
+		if (padre != NULL) {  // el sucesor no es la raï¿½z del subarbol derecho sino un nodo mï¿½s profundo
 			padre->_iz = aux->_dr; // el hijo derecho del sucesor pasa a ser el nuevo izquierdo de su padre
 								   // el sucesor ocupa el puesto del que hay que borrar...
 			aux->_iz = p->_iz; //... su hijo izdo (que antes era null) pasa a ser el izquierdo del que borras
 			aux->_dr = p->_dr; // ... su hijo dcho pasa a ser el derecho del que borras
 		}
-		else { // el sucesor es la raíz del subarbol derecho de la clave a borrar
+		else { // el sucesor es la raï¿½z del subarbol derecho de la clave a borrar
 			aux->_iz = p->_iz;
 		}
 
 		delete p; // eliminamos el nodo con la clave a borrar
-		return aux; // devolvemos la nueva raíz
+		return aux; // devolvemos la nueva raï¿½z
 	}
 
 	/**
-	Puntero a la raíz de la estructura jerárquica
+	Puntero a la raï¿½z de la estructura jerï¿½rquica
 	de nodos.
 	*/
 	Nodo *_ra;
@@ -282,7 +282,7 @@ public:
 	Diccionario() : _ra(NULL) {
 	}
 
-	/** Destructor; elimina la estructura jerárquica de nodos. */
+	/** Destructor; elimina la estructura jerï¿½rquica de nodos. */
 	~Diccionario() {
 		//libera();
 		libera(_ra);
@@ -295,7 +295,7 @@ public:
 		_ra = copia(other._ra);
 	}
 
-	/** Operador de asignación */
+	/** Operador de asignaciï¿½n */
 	Diccionario<tClave, tValor> &operator=(const Diccionario<tClave, tValor> &other) {
 		if (this != &other) {
 			libera(_ra);
@@ -306,7 +306,7 @@ public:
 
 
 	/**
-	 Operación observadora que devuelve si el diccionario es vacío 
+	 Operaciï¿½n observadora que devuelve si el diccionario es vacï¿½o 
 	 (no contiene elementos) o no.
 	 */
 	bool esVacio() const {
@@ -314,8 +314,8 @@ public:
 	}
 
 	/**
-	 Operación observadora que permite averiguar si una clave
-	 determinada está o no en el diccionario.
+	 Operaciï¿½n observadora que permite averiguar si una clave
+	 determinada estï¿½ o no en el diccionario.
 
 	 @param clave Clave por la que se pregunta.
 	 @return true si el diccionario contiene un valor asociado
@@ -327,7 +327,7 @@ public:
 
 	
 	/**
-	 Operación observadora que devuelve el valor asociado
+	 Operaciï¿½n observadora que devuelve el valor asociado
 	 a una clave dada.
 
 	 @param clave Clave por la que se pregunta.
@@ -341,11 +341,11 @@ public:
 
 	
 	/**
-	 Operación mutadora que añade una nueva clave/valor
+	 Operaciï¿½n mutadora que aï¿½ade una nueva clave/valor
 	 a un diccionario.
 	 @param clave Clave nueva.
 	 @param valor Valor asociado a esa clave. Si la clave
-	 ya se había insertado previamente, sustituimos el valor
+	 ya se habï¿½a insertado previamente, sustituimos el valor
 	 viejo por el nuevo.
 	 */
 	void inserta(const tClave &clave, const tValor &valor) {
@@ -353,8 +353,8 @@ public:
 	}
 
 	/**
-	 Operación modificadora que elimina una clave del diccionario.
-	 Si la clave no existía la operación no tiene efecto.
+	 Operaciï¿½n modificadora que elimina una clave del diccionario.
+	 Si la clave no existï¿½a la operaciï¿½n no tiene efecto.
 	 @param clave Clave a eliminar.
 	 */
 	void borra(const tClave &clave) {
@@ -367,7 +367,7 @@ public:
 
 	  /**
 	  Clase interna que implementa un iterador que permite recorrer el 
-	  árbol en inorden pero no permite modificarlo.
+	  ï¿½rbol en inorden pero no permite modificarlo.
 	  */
 	  class ConstIterator {
 	  public:
@@ -381,7 +381,7 @@ public:
 			  else {
 				  // Si no, vamos al primer ascendiente
 				  // no visitado. Para eso consultamos
-				  // la pila; si ya está vacía, no quedan
+				  // la pila; si ya estï¿½ vacï¿½a, no quedan
 				  // ascendientes por visitar
 				  if (_ascendientes.esVacia())
 					  _act = NULL;
@@ -422,10 +422,10 @@ public:
 
 		  /**
 		  Busca el primer elemento en inorden de
-		  la estructura jerárquica de nodos pasada
-		  como parámetro; va apilando sus ascendientes
-		  para poder "ir hacia atrás" cuando sea necesario.
-		  @param p Puntero a la raíz de la subestructura.
+		  la estructura jerï¿½rquica de nodos pasada
+		  como parï¿½metro; va apilando sus ascendientes
+		  para poder "ir hacia atrï¿½s" cuando sea necesario.
+		  @param p Puntero a la raï¿½z de la subestructura.
 		  */
 		  Nodo *primeroInOrden(Nodo *p) {
 			  if (p == NULL)
@@ -443,15 +443,15 @@ public:
 		  Nodo *_act;
 
 		  // Ascendientes del nodo actual
-		  // aún por visitar
+		  // aï¿½n por visitar
 		  Pila<Nodo*> _ascendientes;
 	  };
 
 	  /**
 	  Devuelve el iterador constante al principio del
-	  diccionario (clave más pequeña).
+	  diccionario (clave mï¿½s pequeï¿½a).
 	  @return iterador al principio del recorrido;
-	  coincidirá con cend() si el diccionario está vacío.
+	  coincidirï¿½ con cend() si el diccionario estï¿½ vacï¿½o.
 	  */
 	  ConstIterator cbegin() const {
 		  return ConstIterator(_ra);
@@ -459,7 +459,7 @@ public:
 
 	  /**
 	  @return Devuelve un iterador al final del recorrido
-	  (fuera de éste).
+	  (fuera de ï¿½ste).
 	  */
 	  ConstIterator cend() const {
 		  return ConstIterator(NULL);
@@ -489,7 +489,7 @@ public:
 
 	  /**
 	  Clase interna que implementa un iterador sobre
-	  la árbol de búsqueda que permite recorrer la lista e incluso
+	  la ï¿½rbol de bï¿½squeda que permite recorrer la lista e incluso
 	  alterar el valor de sus elementos.
 	  */
 	  class Iterator {
@@ -504,7 +504,7 @@ public:
 			  else {
 				  // Si no, vamos al primer ascendiente
 				  // no visitado. Para eso consultamos
-				  // la pila; si ya está vacía, no quedan
+				  // la pila; si ya estï¿½ vacï¿½a, no quedan
 				  // ascendientes por visitar
 				  if (_ascendientes.esVacia())
 					  _act = NULL;
@@ -550,10 +550,10 @@ public:
 
 		  /**
 		  Busca el primer elemento en inorden de
-		  la estructura jerárquica de nodos pasada
-		  como parámetro; va apilando sus ascendientes
-		  para poder "ir hacia atrás" cuando sea necesario.
-		  @param p Puntero a la raíz de la subestructura.
+		  la estructura jerï¿½rquica de nodos pasada
+		  como parï¿½metro; va apilando sus ascendientes
+		  para poder "ir hacia atrï¿½s" cuando sea necesario.
+		  @param p Puntero a la raï¿½z de la subestructura.
 		  */
 		  Nodo *primeroInOrden(Nodo *p) {
 			  if (p == NULL)
@@ -571,14 +571,14 @@ public:
 		  Nodo *_act;
 
 		  // Ascendientes del nodo actual
-		  // aún por visitar
+		  // aï¿½n por visitar
 		  Pila<Nodo*> _ascendientes;
 	  };
 
 	  /**
 	  Devuelve el iterador al principio del recorrido.
 	  @return iterador al principio del recorrido;
-	  coincidirá con final() si el recorrido está vacío.
+	  coincidirï¿½ con final() si el recorrido estï¿½ vacï¿½o.
 	  */
 	  Iterator begin() {
 		  return Iterator(_ra);
@@ -586,7 +586,7 @@ public:
 
 	  /**
 	  @return Devuelve un iterador al final del recorrido
-	  (fuera de éste).
+	  (fuera de ï¿½ste).
 	  */
 	  Iterator end() const {
 		  return Iterator(NULL);
