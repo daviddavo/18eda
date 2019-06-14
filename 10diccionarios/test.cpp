@@ -6,7 +6,18 @@
 #include "c08/c08.h"
 using namespace std;
 
-class TestDiccionarios : public :: testing::Test {
+class TestDiccionarios : public ::  testing::Test {
+};
+
+class TestDiccionarios01 : public :: TestDiccionarios {
+
+};
+
+TEST_F(TestDiccionarios01, balanceo) {
+
+}
+
+class TestDiccionariosC08 : public :: TestDiccionarios {
 	protected :
 		vector <string> input;
 		vector <string> output;
@@ -23,8 +34,6 @@ class TestDiccionarios : public :: testing::Test {
 			output.push_back("[jose:-1][juan:2]");
 		}
 };
-
-class TestDiccionariosC08 : public :: TestDiccionarios {};
 
 TEST_F(TestDiccionariosC08, integrity) {
 	for (int i = 0; i < input.size(); ++i) {
