@@ -11,6 +11,8 @@ using namespace std;
 class TestDiccionarios : public :: testing::Test {
 	protected:
 	Diccionario<int, int> d0_;	
+	Diccionario<int, int> d1_;
+	Diccionario<int, int> d2_;
 
 	void SetUp() override {
 		/**   30:0
@@ -22,6 +24,28 @@ class TestDiccionarios : public :: testing::Test {
 		d0_.inserta(30, 0);
 		d0_.inserta(20, 0);
 		d0_.inserta(10, 0);
+
+		d1_.inserta(4, 0);
+		d1_.inserta(3, 0);
+		d1_.inserta(2, 0);
+		d1_.inserta(1, 0);
+
+		/**
+		 * 		 4
+		 *      / \
+		 *     3   5
+		 *    /     \
+		 *   2       6
+		 *  /         \
+		 * 1           7
+		 */
+		d2_.inserta(4, 0);
+		d2_.inserta(3, 0);
+		d2_.inserta(2, 0);
+		d2_.inserta(1, 0);
+		d2_.inserta(5, 0);
+		d2_.inserta(6, 0);
+		d2_.inserta(7, 0);
 	}
 };
 
@@ -30,13 +54,18 @@ class TestDiccionarios : public :: testing::Test {
 class TestDiccionarios03 : public :: TestDiccionarios {};
 
 TEST_F(TestDiccionarios03, consultaK) {
-	ej03::DiccionarioMejorado<int,int> d0mejorado_ = ej03::DiccionarioMejorado<int,int>(d0_);
+	ej03::DiccionarioMejorado<int,int> d0mejorado = ej03::DiccionarioMejorado<int,int>(d0_);
 
-	EXPECT_THROW(d0mejorado_.consultaK(-5), EAccesoNoValido);
-	EXPECT_THROW(d0mejorado_.consultaK(5), EAccesoNoValido);
-	EXPECT_EQ(d0mejorado_.consultaK(0), 10);
-	EXPECT_EQ(d0mejorado_.consultaK(1), 20);
-	EXPECT_EQ(d0mejorado_.consultaK(2), 30);
+	EXPECT_THROW(d0mejorado.consultaK(-5), EAccesoNoValido);
+	EXPECT_THROW(d0mejorado.consultaK(3), EAccesoNoValido);
+	EXPECT_EQ(d0mejorado.consultaK(0), 10);
+	EXPECT_EQ(d0mejorado.consultaK(1), 20);
+	EXPECT_EQ(d0mejorado.consultaK(2), 30);
+
+	ej03::DiccionarioMejorado<int,int> d2mejorado = ej03::DiccionarioMejorado<int,int>(d2_);
+
+	EXPECT_THROW(d2mejorado.consultaK(7), EAccesoNoValido);
+	for (int i = 0; i < 6; i++) EXPECT_EQ(d2mejorado.consultaK(i), i+1);
 }
 
 class TestDiccionariosC08 : public :: TestDiccionarios {
