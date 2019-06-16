@@ -21,7 +21,7 @@ add_library(dict INTERFACE)
 # 08lineales/cola 08lineales/dcola 08lineales/pila
 target_include_directories(lineales INTERFACE 08lineales/lista/nodos_doblemente_enlazados 08lineales/pila/nodos_enlazados)
 target_include_directories(arbin INTERFACE 09arboles/arbol_binario)
-target_include_directories(dict INTERFACE 10diccionarios/arbol_busqueda 10diccionarios/hash_table)
+target_include_directories(dict INTERFACE 10diccionarios/arbol_busqueda 10diccionarios/hash_table 08lineales/pila/nodos_enlazados)
 
 add_executable(testLineales 08lineales/test.cpp)
 add_executable(testArboles 09arboles/test.cpp)

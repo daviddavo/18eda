@@ -60,7 +60,7 @@ class EAccesoNoValido{};
 
 template <class tClave, class tValor>
 class Diccionario {
-private:
+protected:
 	/**
 	Clase nodo que almacena internamente la pareja (clave, valor)
 	y los punteros al hijo izquierdo y al hijo derecho.
