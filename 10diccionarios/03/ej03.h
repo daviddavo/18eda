@@ -46,6 +46,17 @@ namespace ej03 {
 
             return ret;
         }
+
+        /**
+         * Recibe un iterador no constante, elimina el elemento apuntado por él y devuelve un iterador al siguiente
+         * elemento del diccionario
+         */
+        typename Diccionario<tClave, tValor>::Iterator erase(const typename Diccionario<tClave, tValor>::Iterator & it) {
+            if (it == this->end()) throw EAccesoInvalido();
+
+            // this->borraAux(this->_ra, it.clave())
+            return Diccionario<tClave, tValor>::createIterator(this->borraAux(this->_ra, it.clave()));
+        }
     };
 }
 

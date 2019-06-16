@@ -76,7 +76,7 @@ TEST_F(TestDiccionarios03, recorreRango) {
 	EXPECT_THROW(d0mejorado.recorreRango(10, 50), EClaveErronea);
 
 	auto d0lista = Lista<int>();
-	
+
 	d0lista.pon_final(10);
 	EXPECT_EQ(d0mejorado.recorreRango(10, 10), d0lista);
 
@@ -89,6 +89,18 @@ TEST_F(TestDiccionarios03, recorreRango) {
 		d2lista.pon_final(i);
 
 	EXPECT_EQ(d2mejorado.recorreRango(2, 4), d2lista);
+}
+
+TEST_F(TestDiccionarios03, erase) {
+	auto d0mejorado = ej03::DiccionarioMejorado<int, int>(d0_);
+	auto d0mejoradoBorrado = ej03::DiccionarioMejorado<int, int>(Diccionario<int,int>(d0_));
+	d0mejoradoBorrado.borra(10);
+
+	EXPECT_THROW(d0mejorado.erase(d0mejorado.end()), EAccesoInvalido);
+	d0mejorado.erase(d0mejorado.begin());
+
+	// FIXME: Throws EAccesoNoValido
+	EXPECT_EQ(d0mejorado, d0mejoradoBorrado);
 }
 
 class TestDiccionariosC08 : public :: TestDiccionarios {

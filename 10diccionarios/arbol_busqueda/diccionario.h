@@ -167,14 +167,14 @@ protected:
 
 
 	/**
-	Elimina (si existe) la clave/valor de la estructura jer�rquica
-	de nodos apuntada por p. Si la clave aparec�a en la propia ra�z,
-	�sta cambiar�, por lo que se devuelve la nueva ra�z. Si no cambia
+	Elimina (si existe) la clave/valor de la estructura jerárquica
+	de nodos apuntada por p. Si la clave aparecía en la propia raíz,
+	ésta cambiará, por lo que se devuelve la nueva raíz. Si no cambia
 	se devuelve p.
 
-	@param p Ra�z de la estructura jer�rquica donde borrar la clave.
+	@param p Raíz de la estructura jerárquica donde borrar la clave.
 	@param clave Clave a borrar.
-	@return Nueva ra�z de la estructura, tras el borrado. Si la ra�z
+	@return Nueva raíz de la estructura, tras el borrado. Si la raíz
 	no cambia, se devuelve el propio p.
 	*/
 	static Nodo *borraAux(Nodo *p, const tClave &clave) {
@@ -550,10 +550,10 @@ public:
 
 		  /**
 		  Busca el primer elemento en inorden de
-		  la estructura jer�rquica de nodos pasada
-		  como par�metro; va apilando sus ascendientes
-		  para poder "ir hacia atr�s" cuando sea necesario.
-		  @param p Puntero a la ra�z de la subestructura.
+		  la estructura jerárquica de nodos pasada
+		  como parámetro; va apilando sus ascendientes
+		  para poder "ir hacia atrás" cuando sea necesario.
+		  @param p Puntero a la raíz de la subestructura.
 		  */
 		  Nodo *primeroInOrden(Nodo *p) {
 			  if (p == NULL)
@@ -578,7 +578,7 @@ public:
 	  /**
 	  Devuelve el iterador al principio del recorrido.
 	  @return iterador al principio del recorrido;
-	  coincidir� con final() si el recorrido est� vac�o.
+	  coincidirá con final() si el recorrido está vacío.
 	  */
 	  Iterator begin() {
 		  return Iterator(_ra);
@@ -609,6 +609,32 @@ public:
 			  ret._ascendientes = ascendientes;
 		  return ret;
 	  }	
+
+	protected:
+	
+	/**
+	 * Crea un iterador usando un nodo. Proxy pues la amistad no es heredada
+	 */
+	static Iterator createIterator(Nodo * n) {
+		return Iterator(n);
+	}
+
+	public:
+	/**
+	 * Si todos sus nodos tienen la misma clave y valor
+	 */
+	bool operator==(const Diccionario &other) const {
+		ConstIterator ita = this->cbegin(), itb = other.cbegin();
+		
+		while(ita.clave() == itb.clave() && ita.valor() == itb.valor() &&
+			ita != this->cend() && itb != this->cend()
+		) {
+			ita.next();
+			itb.next();
+		}
+
+		return ita == this->cend() && itb == this->cend();
+	}
 };
 
 #endif // __DICCIO_H

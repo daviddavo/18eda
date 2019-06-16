@@ -5,7 +5,9 @@
         "list": "cpp",
         "unordered_map": "cpp",
         "vector": "cpp",
-        "string_view": "cpp"
+        "string_view": "cpp",
+        "*.tcc": "cpp",
+        "hash_map": "cpp"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }
