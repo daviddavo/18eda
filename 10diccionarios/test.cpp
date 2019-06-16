@@ -68,6 +68,29 @@ TEST_F(TestDiccionarios03, consultaK) {
 	for (int i = 0; i < 6; i++) EXPECT_EQ(d2mejorado.consultaK(i), i+1);
 }
 
+TEST_F(TestDiccionarios03, recorreRango) {
+	auto d0mejorado = ej03::DiccionarioMejorado<int, int>(d0_);
+
+	EXPECT_THROW(d0mejorado.recorreRango(0, 2), EClaveErronea);
+	EXPECT_THROW(d0mejorado.recorreRango(10, 2), EClaveErronea);
+	EXPECT_THROW(d0mejorado.recorreRango(10, 50), EClaveErronea);
+
+	auto d0lista = Lista<int>();
+	
+	d0lista.pon_final(10);
+	EXPECT_EQ(d0mejorado.recorreRango(10, 10), d0lista);
+
+	d0lista.pon_final(20);
+	EXPECT_EQ(d0mejorado.recorreRango(10, 20), d0lista);
+
+	auto d2mejorado = ej03::DiccionarioMejorado<int, int>(d2_);
+	auto d2lista = Lista<int>();
+	for (int i = 2; i <= 4; i++)
+		d2lista.pon_final(i);
+
+	EXPECT_EQ(d2mejorado.recorreRango(2, 4), d2lista);
+}
+
 class TestDiccionariosC08 : public :: TestDiccionarios {
 	protected :
 		vector <string> input;
