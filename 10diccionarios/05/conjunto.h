@@ -1,0 +1,157 @@
+/** Implementa un TAD conjunto basado en las tablas dispersas con las operaciones
+ * habituales: ConjuntoVacio(), inserta(), borra(), esta(), union() [operator+], interseccion() [operator&&]
+ * y diferencia() [operator-]
+ */
+#include "hash.h"
+
+class EYaEnConjunto {};
+
+namespace ej05 {
+    template <class T>
+    class Conjunto {
+    protected:
+        class Nodo {
+        public:
+            /* Constructores. */
+            Nodo(const T &elem) : 
+            _elem(elem), _sig(NULL) {};
+            
+            Nodo(const T &elem, Nodo *sig) : 
+            _elem(elem), _sig(sig) {};
+            
+            /* Atributos p�blicos. */
+            T _elem;    
+            Nodo *_sig;  // Puntero al siguiente nodo.
+        };  
+
+        /**
+         * Representaci�n de la tabla. La tabla contiene: (i) el array de punteros a nodos,
+         * (ii) el tama�o actual, (iii) el n�mero de elementos que aloja
+         */
+        class Tabla {
+        public:
+            Nodo **_v;               ///< Array de punteros a Nodo.
+            unsigned int _tam;       ///< Tama�o del array _v.
+            unsigned int _numElems;  ///< N�mero de elementos en la tabla.   
+        };
+        
+        Tabla _tabla;  //< Tabla dispersa
+
+    public:
+        static const int TAM_INICIAL = 8;
+
+        Conjunto(unsigned n) {
+            _tabla._v = new Nodo*[n];
+            _tabla._tam = n;
+            _tabla._numElems = 0;
+
+            for (unsigned i = 0; i < _tabla._tam; ++i)
+                _tabla._v[i] = nullptr; // Debugging
+        }
+
+        Conjunto() : Conjunto(TAM_INICIAL) {}
+
+        ~Conjunto() {
+            libera(_tabla);
+        }
+
+        bool esta(const T &elem) {
+            // Obtenemos el índice asociado a esa clave
+            unsigned int ind = ::h(elem) % _tabla._tam;
+
+            // Buscamos un nodo que contenga esa clave
+            Nodo * nodo = buscaNodo(elem, _tabla._v[ind]);
+            return nodo != NULL;
+        }
+
+        void inserta(const T &elem) {
+            if (esta(elem)) throw EYaEnConjunto();
+
+            insertaAux(_tabla, elem);
+        }
+
+    protected:
+        static void amplia(Tabla & tabla) {
+            Nodo **vAnt = tabla._v;
+            unsigned int tamAnt = tabla._tam;
+
+            tabla._tam *= 2;
+            tabla._v = new Nodo*[tabla._tam];
+            for (unsigned int i = 0; i < tabla._tam; ++i)
+                tabla._v[i] = NULL;
+
+            for (unsigned int i = 0; i < tamAnt; ++i) {
+                Nodo * nodo = vAnt[i];
+                while (nodo != NULL) {
+                    Nodo * aux = nodo;
+                    nodo = nodo->_sig;
+
+                    unsigned int ind = ::h(aux->_elem) % tabla._tam;
+                    aux->_sig = tabla._v[ind];
+                    tabla._v[ind] = aux;
+                }
+            }
+
+            delete[] vAnt;
+        }
+
+        static void insertaAux(Tabla & tabla, const T & elem) {
+            // Si la ocupación es muy alta ampliamos la tabla
+            float ocupacion = 100 * ((float)tabla._numElems)/tabla._tam;
+            if (ocupacion > MAX_OCUPACION)
+                amplia(tabla);
+
+            unsigned int ind = ::h(elem) % tabla._tam;
+            tabla._v[ind] = new Nodo(elem, tabla._v[ind]);
+            tabla._numElems++;
+        }
+
+        static void buscaNodo(const T & elem, Nodo * &act, Nodo * & ant) {
+            ant = NULL;
+            while (act != NULL) {
+                if (act->_elem == elem) {
+                    return;
+                } else {
+                    ant = act;
+                    act = act->_sig;
+                }
+            }
+        }
+
+        /**
+         * Generalización de buscaNodo
+         * Busca un nodo a partir de "prim" que contenga la clave dada.
+         * A diferencia del otro método "buscaNodo", este no devuelve un puntero
+         * al nodo anterior
+         */
+        static Nodo* buscaNodo(const T & elem, Nodo * prim) {
+            Nodo * act = prim;
+            Nodo * ant;
+            buscaNodo(elem, act, ant);
+            return act;
+        }
+
+        static void libera(Tabla & tabla) {
+            for (unsigned int i = 0; i < tabla._tam; ++i)
+                liberaNodos(tabla._v[i]);
+
+            if (tabla._v != NULL) {
+                delete[] tabla._v;
+                tabla._v = NULL;
+            }
+
+            tabla._tam = 0;
+            tabla._numElems = 0;
+        }
+
+        static void liberaNodos(Nodo * prim) {
+            while (prim != NULL) {
+                Nodo * aux = prim;
+                prim = prim->_sig;
+                delete aux;
+            }
+        }
+
+        static const unsigned int MAX_OCUPACION = 80;
+    };
+}

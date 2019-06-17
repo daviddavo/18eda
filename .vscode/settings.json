@@ -7,7 +7,8 @@
         "vector": "cpp",
         "string_view": "cpp",
         "*.tcc": "cpp",
-        "hash_map": "cpp"
+        "hash_map": "cpp",
+        "cstddef": "cpp"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }

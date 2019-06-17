@@ -5,6 +5,10 @@
  // SEAN NECESARIAS (deben ponerse las cabeceras).
  // LAS FUNCIONES DEBEN IMPLEMENTARSE EN UN ARCHIVO .cpp
  // APROPIADO (p.e., hash.cpp)
- 
+ template <typename T>
+ unsigned int h(T v) {
+    std::hash<T> hash;
+    return hash(v);
+ }
  
 #endif

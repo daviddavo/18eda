@@ -5,6 +5,7 @@
 
 // #include "01/ej01.h"
 #include "03/ej03.h"
+#include "05/conjunto.h"
 #include "c08/c08.h"
 using namespace std;
 
@@ -102,6 +103,33 @@ TEST_F(TestDiccionarios03, erase) {
 	// FIXME: Throws EAccesoNoValido
 	EXPECT_EQ(d0mejorado, d0mejoradoBorrado);
 	EXPECT_TRUE(false);	// Ejercicio por terminar
+}
+
+class TestDiccionarios05 : public :: TestDiccionarios {};
+
+TEST_F(TestDiccionarios05, ConjuntoVacio) {
+	EXPECT_NO_THROW(ej05::Conjunto<int>());
+	EXPECT_NO_THROW(ej05::Conjunto<int>(10));
+}
+
+TEST_F(TestDiccionarios05, Contiene) {
+	auto c0 = ej05::Conjunto<int>();
+	EXPECT_FALSE(c0.esta(10));
+	c0.inserta(10);
+	EXPECT_TRUE(c0.esta(10));
+}
+
+TEST_F(TestDiccionarios05, Inserta) {
+	auto c0 = ej05::Conjunto<int>();
+	EXPECT_NO_THROW(c0.inserta(10));
+	EXPECT_THROW(c0.inserta(10), EYaEnConjunto);
+
+	// Testing colisions
+	for (int i = 11; i < 1000000; i++) {
+		EXPECT_FALSE(c0.esta(i));
+		EXPECT_NO_THROW(c0.inserta(i));
+		EXPECT_TRUE(c0.esta(i));
+	}
 }
 
 class TestDiccionariosC08 : public :: TestDiccionarios {
