@@ -97,10 +97,11 @@ TEST_F(TestDiccionarios03, erase) {
 	d0mejoradoBorrado.borra(10);
 
 	EXPECT_THROW(d0mejorado.erase(d0mejorado.end()), EAccesoInvalido);
-	d0mejorado.erase(d0mejorado.begin());
+	auto it = d0mejorado.erase(d0mejorado.begin());
 
 	// FIXME: Throws EAccesoNoValido
 	EXPECT_EQ(d0mejorado, d0mejoradoBorrado);
+	EXPECT_TRUE(false);	// Ejercicio por terminar
 }
 
 class TestDiccionariosC08 : public :: TestDiccionarios {

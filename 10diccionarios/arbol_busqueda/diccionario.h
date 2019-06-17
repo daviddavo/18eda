@@ -610,15 +610,6 @@ public:
 		  return ret;
 	  }	
 
-	protected:
-	
-	/**
-	 * Crea un iterador usando un nodo. Proxy pues la amistad no es heredada
-	 */
-	static Iterator createIterator(Nodo * n) {
-		return Iterator(n);
-	}
-
 	public:
 	/**
 	 * Si todos sus nodos tienen la misma clave y valor
@@ -626,8 +617,8 @@ public:
 	bool operator==(const Diccionario &other) const {
 		ConstIterator ita = this->cbegin(), itb = other.cbegin();
 		
-		while(ita.clave() == itb.clave() && ita.valor() == itb.valor() &&
-			ita != this->cend() && itb != this->cend()
+		while(ita != this->cend() && itb != this->cend() &&
+			ita.clave() == itb.clave() && ita.valor() == itb.valor()			
 		) {
 			ita.next();
 			itb.next();
