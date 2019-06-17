@@ -70,6 +70,63 @@ namespace ej05 {
             insertaAux(_tabla, elem);
         }
 
+        Conjunto<T> & interseccion(Conjunto<T> & conj) {
+            Conjunto<T> ret = Conjunto<T>();
+
+        }
+
+        class ConstIterator {
+            public:
+            void next() {
+                if (_act == NULL) throw EAccesoNoValido();
+                _act = _act->_sig;  // Iterador común de toda la vida
+
+                while ((_act == NULL) && (_ind < _tabla._tam -1)) {
+                    ++_ind;
+                    _act = _tabla._v[_ind];
+                }
+            }
+
+            const T &elem() const {
+                if (_act == NULL) throw EAccesoNoValido();
+                return _act->_elem;
+            }
+
+            bool operator==(const ConstIterator & other) const {
+                return _act == other._act;
+            }
+
+            bool operator!=(const ConstIterator & other) const {
+                return !(this->operator==(other));
+            }
+
+            protected:
+            friend class Conjunto;
+
+            ConstIterator() : _act(NULL) {}
+            ConstIterator(const Tabla & tabla, Nodo * act, unsigned int ind) :
+                _tabla(tabla), _act(act), _ind(ind) {}
+
+            const Tabla & _tabla;
+            Nodo * _act;    // Necesitamos tanto el nodo actual
+            unsigned int _ind;  // Como el indice en la tabla
+        };
+
+        ConstIterator cbegin() {
+            unsigned int ind = 0;
+            Nodo * act = _tabla._v[ind];
+            while (ind < _tabla._tam-1 && act == NULL) {
+                ind++;
+                act = _tabla._v[ind];
+            }
+
+            return ConstInterator(_tabla, act, ind);
+        }
+
+        ConstIterator cend() {
+            return Iterator(_tabla, NULL, 0);
+        }
+
     protected:
         static void amplia(Tabla & tabla) {
             Nodo **vAnt = tabla._v;
