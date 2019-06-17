@@ -73,6 +73,7 @@ namespace ej05 {
         Conjunto<T> & interseccion(Conjunto<T> & conj) {
             Conjunto<T> ret = Conjunto<T>();
 
+            
         }
 
         class ConstIterator {
