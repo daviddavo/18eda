@@ -1,14 +1,14 @@
 /**
  *  @file diccionarioHash.h
  * 
- *  Implementación dinámica del TAD Diccionario utilizando
+ *  Implementaciï¿½n dinï¿½mica del TAD Diccionario utilizando
  *  tablas dispersas
  * 
  *  Estructura de Datos y Algoritmos
- *  Facultad de Informática
+ *  Facultad de Informï¿½tica
  *  Universidad Complutense de Madrid
  * 
- * (c) Antonio Sánchez Ruiz-Granados, 2012, Mercedes Gomez, Jose Luis Sierra, 2017
+ * (c) Antonio Sï¿½nchez Ruiz-Granados, 2012, Mercedes Gomez, Jose Luis Sierra, 2017
  */
 #ifndef __DICCIO2_H
 #define __DICCIO2_H
@@ -19,36 +19,36 @@
 
 
  /**
- Implementación dinámica del TAD Diccionario utilizando
+ Implementaciï¿½n dinï¿½mica del TAD Diccionario utilizando
  tablas dispersas abiertas.
 
  Las operaciones son:
 
- - diccionarioVacio: operación generadora que construye
- un diccionario vacío.
+ - diccionarioVacio: operaciï¿½n generadora que construye
+ un diccionario vacï¿½o.
 
- - inserta(clave, valor): modificadora que añade una
+ - inserta(clave, valor): modificadora que aï¿½ade una
  nueva pareja (clave, valor) al diccionario. Si la
  clave ya estaba se sustituye el valor.
 
- - borra(clave): operación modificadora. Elimina la
- clave del diccionario.  Si la clave no está,
- la operación no tiene efecto.
+ - borra(clave): operaciï¿½n modificadora. Elimina la
+ clave del diccionario.  Si la clave no estï¿½,
+ la operaciï¿½n no tiene efecto.
 
- - valorPara(clave): operación observadora que devuelve
+ - valorPara(clave): operaciï¿½n observadora que devuelve
  el valor asociado a una clave. Es un error preguntar
  por una clave que no existe.
 
- - contiene(clave): operación observadora. Sirve para
+ - contiene(clave): operaciï¿½n observadora. Sirve para
  averiguar si se ha introducido una clave en el diccionario.
 
  - esVacio(): operacion observadora que indica si
  el diccionario tiene alguna clave introducida.
 
- @author Antonio Sánchez Ruiz-Granados ( adaptaciones de Mercedes Gómez y José Luis Sierra)
+ @author Antonio Sï¿½nchez Ruiz-Granados ( adaptaciones de Mercedes Gï¿½mez y Josï¿½ Luis Sierra)
  */
 
- /// Excepciones generadas por algunos métodos
+ /// Excepciones generadas por algunos mï¿½todos
 class EClaveErronea2 {};
 
 class EAccesoNoValido2 {};
@@ -69,21 +69,21 @@ private:
 		Nodo(const tClave &clave, const tValor &valor, Nodo *sig) : 
 		_clave(clave), _valor(valor), _sig(sig) {};
 		
-		/* Atributos públicos. */
+		/* Atributos pï¿½blicos. */
 		tClave _clave;    
 		tValor _valor;   
 		Nodo *_sig;  // Puntero al siguiente nodo.
 	};  
 
 	/**
-	 * Representación de la tabla. La tabla contiene: (i) el array de punteros a nodos,
-	 * (ii) el tamaño actual, (iii) el número de elementos que aloja
+	 * Representaciï¿½n de la tabla. La tabla contiene: (i) el array de punteros a nodos,
+	 * (ii) el tamaï¿½o actual, (iii) el nï¿½mero de elementos que aloja
 	 */
 	class Tabla {
 	  public:
 		Nodo **_v;               ///< Array de punteros a Nodo.
-		unsigned int _tam;       ///< Tamaño del array _v.
-		unsigned int _numElems;  ///< Número de elementos en la tabla.   
+		unsigned int _tam;       ///< Tamaï¿½o del array _v.
+		unsigned int _numElems;  ///< Nï¿½mero de elementos en la tabla.   
 	};
 	
 	Tabla _tabla;  //< Tabla dispersa
@@ -91,7 +91,7 @@ private:
 public:
 	
 	/**
-	 * Tamaño inicial de la tabla.
+	 * Tamaï¿½o inicial de la tabla.
 	 */
 	static const int TAM_INICIAL = 8;    
 	
@@ -111,11 +111,11 @@ public:
 	}
 	
 	/**
-	 *	 Operación generadora que añade una nueva clave/valor
+	 *	 Operaciï¿½n generadora que aï¿½ade una nueva clave/valor
 	 *	 a este diccionario
 	 *	 @param clave Clave nueva.
 	 *	 @param valor Valor asociado a esa clave. Si la clave
-	 *	 ya se había insertado previamente, sustituimos el valor
+	 *	 ya se habï¿½a insertado previamente, sustituimos el valor
 	 *	 viejo por el nuevo.
 	 */
 	void inserta(const tClave &clave, const tValor &valor) {
@@ -124,8 +124,8 @@ public:
 
 	
 	/**
-	 *	 Operación modificadora que elimina una clave del diccionario.
-	 *	 Si la clave no existía la operación no tiene efecto.
+	 *	 Operaciï¿½n modificadora que elimina una clave del diccionario.
+	 *	 Si la clave no existï¿½a la operaciï¿½n no tiene efecto.
 	 *	 @param clave Clave a eliminar.
 	 */
 	void borra(const tClave &clave) {
@@ -133,7 +133,7 @@ public:
 	}
 	
 	/**
-	 *	 Operación observadora que devuelve el valor asociado
+	 *	 Operaciï¿½n observadora que devuelve el valor asociado
 	 *	 a una clave dada.
 	 *	 @param clave Clave por la que se pregunta.
 	 */
@@ -142,14 +142,14 @@ public:
 	}
 
 	/**
-	 *	 Operación observadora que permite averiguar si una clave
-	 *	 determinada está o no en el diccionario.
+	 *	 Operaciï¿½n observadora que permite averiguar si una clave
+	 *	 determinada estï¿½ o no en el diccionario.
 	 *	 @param clave Clave por la que se pregunta.
 	 *	 @return true si el diccionario contiene un valor asociado
 	 *	 a esa clave.
 	 */
 	bool contiene(const tClave &clave) const {
-		// Obtenemos el índice asociado a la clave.
+		// Obtenemos el ï¿½ndice asociado a la clave.
 		unsigned int ind = ::h(clave) % _tabla._tam;
 		
 		// Buscamos un nodo que contenga esa clave.
@@ -158,8 +158,8 @@ public:
 	}
 	
 	/**
-	 *	 Operación observadora que devuelve si el diccionario
-	 *	 es vacío (no contiene elementos) o no.
+	 *	 Operaciï¿½n observadora que devuelve si el diccionario
+	 *	 es vacï¿½o (no contiene elementos) o no.
 	 */
 	bool esVacio() const {
 		return _tabla._numElems == 0;
@@ -215,16 +215,16 @@ public:
 		ConstIterator(const Tabla& tabla, Nodo* act, unsigned int ind) 
 			: _tabla(tabla), _act(act), _ind(ind) { }
 		
-		const Tabla _tabla;     ///< Tabla que se está recorriendo
+		const Tabla _tabla;     ///< Tabla que se estï¿½ recorriendo
 		Nodo* _act;             ///< Puntero al nodo actual del recorrido
-		unsigned int _ind;      ///< Índice actual en el vector _v
+		unsigned int _ind;      ///< ï¿½ndice actual en el vector _v
 	};
 	
 	/**
 	 *	 Devuelve el iterador constante al principio del
 	 *	 diccionario.
 	 *	 @return iterador al principio del diccionario;
-	 *	 coincidirá con cend() si el diccionario está vacío.
+	 *	 coincidirï¿½ con cend() si el diccionario estï¿½ vacï¿½o.
 	 */
 	ConstIterator cbegin() const {
 		unsigned int ind = 0;
@@ -238,7 +238,7 @@ public:
 	
 	/**
 	 *	 @return Devuelve un iterador al final del diccionario
-	 *	 (fuera de éste).
+	 *	 (fuera de ï¿½ste).
 	 */
 	ConstIterator cend() const {
 		return ConstIterator(_tabla, NULL, 0);
@@ -249,7 +249,7 @@ public:
 	 *	 clave, o al final del diccionario si clave no encontrada
 	 */
 	ConstIterator cbusca(const tClave &clave) const {
-		// Obtenemos el índice asociado a la clave.
+		// Obtenemos el ï¿½ndice asociado a la clave.
 		unsigned int ind = ::h(clave) % _tabla._tam;
 		
 		// Buscamos un nodo que contenga esa clave.
@@ -312,15 +312,15 @@ public:
 		Iterator(const Tabla& tabla, Nodo* act, unsigned int ind) 
 		: _tabla(tabla), _act(act), _ind(ind) { }
 		
-		const Tabla& _tabla;  ///< Tabla que se está recorriendo
+		const Tabla& _tabla;  ///< Tabla que se estï¿½ recorriendo
 		Nodo* _act;             ///< Puntero al nodo actual del recorrido
-		unsigned int _ind;      ///< Índice actual en el vector _v
+		unsigned int _ind;      ///< ï¿½ndice actual en el vector _v
 	};
 	
 	/**
 	 *	 Devuelve el iterador al principio de la tabla.
 	 *	 @return iterador al principio de la tabla;
-	 *	 coincidirá con final() si la tabla está vacía.
+	 *	 coincidirï¿½ con final() si la tabla estï¿½ vacï¿½a.
 	 */
 	Iterator begin() {
 		unsigned int ind = 0;
@@ -334,7 +334,7 @@ public:
 	
 	/**
 	 *	 @return Devuelve un iterador al final del recorrido
-	 *	 (fuera de éste).
+	 *	 (fuera de ï¿½ste).
 	 */
 	Iterator end() const {
 		return Iterator(_tabla, NULL, 0);
@@ -345,7 +345,7 @@ public:
 	 *	 clave, o al final del recorrido si clave no encontrada
 	 */
 	Iterator busca(const tClave &clave) {
-		// Obtenemos el índice asociado a la clave.
+		// Obtenemos el ï¿½ndice asociado a la clave.
 		unsigned int ind = ::h(clave) % _tabla._tam;
 		
 		// Buscamos un nodo que contenga esa clave.
@@ -357,7 +357,7 @@ public:
 	
 	
 	// //
-	// MÉTODOS DE "FONTANERÍA" DE C++ QUE HACEN VERSÁTIL
+	// MÃ‰TODOS DE "FONTANERÃA" DE C++ QUE HACEN VERSÃTIL
 	// A LA CLASE
 	// //
 	
@@ -366,7 +366,7 @@ public:
 		copia(_tabla,other._tabla);
 	}
 	
-	/** Operador de asignación */
+	/** Operador de asignaciï¿½n */
 	DiccionarioHash &operator=(const DiccionarioHash &other) {
 		if (this != &other) {
 			libera(_tabla);
@@ -388,21 +388,21 @@ private:
 	* Inserta un par clave-valor en la tabla.
 	*/
 	static void insertaAux(Tabla& tabla, const tClave &clave, const tValor &valor) {
-		// Si la ocupación es muy alta ampliamos la tabla
+		// Si la ocupaciï¿½n es muy alta ampliamos la tabla
 		float ocupacion = 100 * ((float)tabla._numElems) / tabla._tam;
 		if (ocupacion > MAX_OCUPACION)
 			amplia(tabla);
 
-		// Obtenemos el índice asociado a la clave.
+		// Obtenemos el ï¿½ndice asociado a la clave.
 		unsigned int ind = ::h(clave) % tabla._tam;
 
-		// Si la clave ya existía, actualizamos su valor
+		// Si la clave ya existï¿½a, actualizamos su valor
 		Nodo *nodo = buscaNodo(clave, tabla._v[ind]);
 		if (nodo != NULL) {
 			nodo->_valor = valor;
 		}
 		else {
-			// Si la clave no existía, creamos un nuevo nodo y lo insertamos
+			// Si la clave no existï¿½a, creamos un nuevo nodo y lo insertamos
 			// al principio
 			tabla._v[ind] = new Nodo(clave, valor, tabla._v[ind]);
 			tabla._numElems++;
@@ -413,7 +413,7 @@ private:
 	* Borra una clave de la tabla.
 	*/
 	static void borraAux(Tabla& tabla, const tClave& clave) {
-		// Obtenemos el índice asociado a la clave.
+		// Obtenemos el ï¿½ndice asociado a la clave.
 		unsigned int ind = ::h(clave) % tabla._tam;
 
 		// Buscamos el nodo que contiene esa clave y el nodo anterior.
@@ -431,7 +431,7 @@ private:
 				tabla._v[ind] = act->_sig;
 			}
 
-			// Borramos el nodo extraído.
+			// Borramos el nodo extraï¿½do.
 			delete act;
 			tabla._numElems--;
 		}
@@ -441,7 +441,7 @@ private:
 	* Busca el valor asociado a una clave en la tabla.
 	*/
 	static tValor &buscaAux(const Tabla& tabla, const tClave &clave) {
-		// Obtenemos el índice asociado a la clave.
+		// Obtenemos el ï¿½ndice asociado a la clave.
 		unsigned int ind = ::h(clave) % tabla._tam;
 
 		// Buscamos un nodo que contenga esa clave.
@@ -454,7 +454,7 @@ private:
 
 
 	/**
-	 * Libera toda la memoria dinámica reservada para la tabla.
+	 * Libera toda la memoria dinï¿½mica reservada para la tabla.
 	 */
 	static void libera(Tabla& tabla) {
 		
@@ -487,8 +487,8 @@ private:
 	}
 	
 	/**
-	 * Hace una copia de la tabla que recibe como parámetro. Antes de llamar
-	 * a este método se debe invocar al método "libera".
+	 * Hace una copia de la tabla que recibe como parï¿½metro. Antes de llamar
+	 * a este mï¿½todo se debe invocar al mï¿½todo "libera".
 	 *
 	 * @param other tabla que se quiere copiar.
 	 */
@@ -512,24 +512,24 @@ private:
 	}
 	
 	/**
-	 * Este método duplica la capacidad del array de punteros actual.
+	 * Este mï¿½todo duplica la capacidad del array de punteros actual.
 	 */
 	static void amplia(Tabla& tabla) {
-		// Creamos un puntero al array actual y anotamos su tamaño.
+		// Creamos un puntero al array actual y anotamos su tamaï¿½o.
 		Nodo **vAnt = tabla._v;
 		unsigned int tamAnt = tabla._tam;
 		
-		// Duplicamos el array en otra posición de memoria.
+		// Duplicamos el array en otra posiciï¿½n de memoria.
 		tabla._tam *= 2; 
 		tabla._v = new Nodo*[tabla._tam];
 		for (unsigned int i=0; i<tabla._tam; ++i)
 			tabla._v[i] = NULL;
 		
 		// Recorremos el array original moviendo cada nodo a la nueva 
-		// posición que le corresponde en el nuevo array.
+		// posiciï¿½n que le corresponde en el nuevo array.
 		for (unsigned int i=0; i<tamAnt; ++i) {
 			
-			// IMPORTANTE: Al modificar el tamaño también se modifica el índice
+			// IMPORTANTE: Al modificar el tamaï¿½o tambiï¿½n se modifica el ï¿½ndice
 			// asociado a cada nodo. Es decir, los nodos se mueven a posiciones
 			// distintas en el nuevo array.
 			
@@ -542,7 +542,7 @@ private:
 				Nodo *aux = nodo;
 				nodo = nodo->_sig;
 				
-				// Calculamos el nuevo índice del nodo, lo desenganchamos del 
+				// Calculamos el nuevo ï¿½ndice del nodo, lo desenganchamos del 
 				// array antiguo y lo enganchamos al nuevo.
 				unsigned int ind = ::h(aux->_clave) % tabla._tam;
 				aux->_sig = tabla._v[ind];
@@ -550,17 +550,17 @@ private:
 			}
 		}
 		
-		// Borramos el array antiguo (ya no contiene ningún nodo).
+		// Borramos el array antiguo (ya no contiene ningï¿½n nodo).
 		delete[] vAnt;
 	}
 	
 	/**
 	 * Busca un nodo a partir del nodo "act" que contenga la clave dada. Si lo 
-	 * encuentra, "act" quedará apuntando a dicho nodo y "ant" al nodo anterior.
-	 * Si no lo encuentra "act" quedará apuntando a NULL.
+	 * encuentra, "act" quedarï¿½ apuntando a dicho nodo y "ant" al nodo anterior.
+	 * Si no lo encuentra "act" quedarï¿½ apuntando a NULL.
 	 *
 	 * @param clave clave del nodo que se busca.
-	 * @param act [in/out] inicialmente indica el primer nodo de la búsqueda y 
+	 * @param act [in/out] inicialmente indica el primer nodo de la bï¿½squeda y 
 	 *            al finalizar indica el nodo encontrado o NULL.
 	 * @param ant [out] puntero al nodo anterior a "act" o NULL.
 	 */
@@ -581,11 +581,11 @@ private:
 	
 	/**
 	 * Busca un nodo a partir de "prim" que contenga la clave dada. A 
-	 * diferencia del otro método "buscaNodo", este no devuelve un puntero al
+	 * diferencia del otro mï¿½todo "buscaNodo", este no devuelve un puntero al
 	 * nodo anterior.
 	 *
 	 * @param clave clave del nodo que se busca.
-	 * @param prim nodo a partir del cual realizar la búsqueda. 
+	 * @param prim nodo a partir del cual realizar la bï¿½squeda. 
 	 * @return nodo encontrado o NULL.
 	 */
 	static Nodo* buscaNodo(const tClave &clave, Nodo* prim) {
@@ -596,7 +596,7 @@ private:
 	}
 	
 	/**
-	 * Ocupación máxima permitida antes de ampliar la tabla en tanto por cientos.
+	 * Ocupaciï¿½n mï¿½xima permitida antes de ampliar la tabla en tanto por cientos.
 	 */
 	static const unsigned int MAX_OCUPACION = 80;
 

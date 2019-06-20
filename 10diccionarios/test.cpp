@@ -6,6 +6,7 @@
 // #include "01/ej01.h"
 #include "03/ej03.h"
 #include "05/conjunto.h"
+#include "06/ej06.h"
 #include "c08/c08.h"
 using namespace std;
 
@@ -194,6 +195,21 @@ TEST_F(TestDiccionarios05, Diferencia) {
 
 	EXPECT_EQ(c1_.diferencia(c2_), c1difc2_);
 	EXPECT_EQ(c2_.diferencia(c1_), c2difc1_);
+}
+
+class TestDiccionarios06 : public :: testing::Test {
+	protected:
+	DiccionarioHash<int, int> d0_;
+
+	void SetUp() override {
+		// d0_ is empty
+	}
+};
+
+TEST_F(TestDiccionarios06, IndiceRadial) {
+	EXPECT_EQ((DiccionarioRadial<int, int>(d0_)).indRadial(), 0);
+	d0_.inserta(3, 5);
+	EXPECT_EQ((DiccionarioRadial<int, int>(d0_)).indRadial(), 1);
 }
 
 class TestDiccionariosC08 : public :: TestDiccionarios {
