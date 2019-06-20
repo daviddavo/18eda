@@ -208,8 +208,8 @@ class TestDiccionarios06 : public :: testing::Test {
 
 TEST_F(TestDiccionarios06, IndiceRadial) {
 	EXPECT_EQ((DiccionarioRadial<int, int>(d0_)).indRadial(), 0);
-	d0_.inserta(3, 5);
-	EXPECT_EQ((DiccionarioRadial<int, int>(d0_)).indRadial(), 1);
+	d0_.inserta(0, 5);
+	EXPECT_EQ((DiccionarioRadial<int, int>(d0_)).indRadial(), (unsigned)(DiccionarioHash<int,int>::TAM_INICIAL));
 }
 
 class TestDiccionariosC08 : public :: TestDiccionarios {

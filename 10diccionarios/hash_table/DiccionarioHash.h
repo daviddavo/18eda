@@ -55,7 +55,7 @@ class EAccesoNoValido2 {};
 
 template <class tClave, class tValor>
 class DiccionarioHash {
-private:
+protected:
 	/**
 	 * La tabla contiene un array de punteros a nodos. Cada nodo contiene una 
 	 * clave, un valor y un puntero al siguiente nodo.
@@ -106,7 +106,7 @@ public:
 	}
 	
 	/** Destructor; elimina la memoria dinamica */
-	~DiccionarioHash() {
+	virtual ~DiccionarioHash() {
 		libera(_tabla);
 	}
 	
