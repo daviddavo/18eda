@@ -112,6 +112,8 @@ class TestDiccionarios05 : public :: testing::Test {
 	ej05::Conjunto<int> c2_;
 	ej05::Conjunto<int> c1interc2_;
 	ej05::Conjunto<int> c1unionc2_;
+	ej05::Conjunto<int> c1difc2_;
+	ej05::Conjunto<int> c2difc1_;
 
 	void SetUp() override {
 		// c0_ = "Conjunto Vacío"
@@ -126,6 +128,12 @@ class TestDiccionarios05 : public :: testing::Test {
 
 		for (int i = 0; i < 30; ++i)
 			c1unionc2_.inserta(i);
+
+		for (int i = 0; i < 10; ++i)
+			c1difc2_.inserta(i);
+
+		for (int i = 20; i < 30; ++i)
+			c2difc1_.inserta(i);
 	}
 };
 
@@ -178,6 +186,14 @@ TEST_F(TestDiccionarios05, Union) {
 
 	EXPECT_EQ(c1_.either(c2_), c1unionc2_);
 	EXPECT_EQ(c2_.either(c1_), c1unionc2_);
+}
+
+TEST_F(TestDiccionarios05, Diferencia) {
+	EXPECT_EQ(c1_.diferencia(c0_), c1_);
+	EXPECT_EQ(c0_.diferencia(c1_), c0_);
+
+	EXPECT_EQ(c1_.diferencia(c2_), c1difc2_);
+	EXPECT_EQ(c2_.diferencia(c1_), c2difc1_);
 }
 
 class TestDiccionariosC08 : public :: TestDiccionarios {

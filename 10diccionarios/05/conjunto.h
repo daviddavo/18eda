@@ -101,6 +101,17 @@ namespace ej05 {
             return ret;
         }
 
+        Conjunto<T> diferencia(const Conjunto<T> & conj) {
+            Conjunto<T> ret = Conjunto<T>();
+
+            for (ConstIterator it = cbegin(); it != cend(); it.next()) {
+                if (!conj.esta(it.elem()))
+                    ret.insertaAux(ret._tabla, it.elem());
+            }
+
+            return ret;
+        }
+
         class ConstIterator {
             public:
             void next() {
