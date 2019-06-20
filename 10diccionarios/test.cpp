@@ -105,7 +105,25 @@ TEST_F(TestDiccionarios03, erase) {
 	EXPECT_TRUE(false);	// Ejercicio por terminar
 }
 
-class TestDiccionarios05 : public :: TestDiccionarios {};
+class TestDiccionarios05 : public :: testing::Test {
+	protected:
+	ej05::Conjunto<int> c0_;
+	ej05::Conjunto<int> c1_;
+	ej05::Conjunto<int> c2_;
+	ej05::Conjunto<int> c1interc2_;
+
+	void SetUp() override {
+		// c0_ = "Conjunto Vacío"
+		for (int i = 0; i < 20; ++i)
+			c1_.inserta(i);
+
+		for (int i = 10; i < 30; ++i)
+			c2_.inserta(i);
+
+		for (int i = 10; i < 20; ++i)
+			c1interc2_.inserta(i);
+	}
+};
 
 TEST_F(TestDiccionarios05, ConjuntoVacio) {
 	EXPECT_NO_THROW(ej05::Conjunto<int>());
@@ -113,23 +131,41 @@ TEST_F(TestDiccionarios05, ConjuntoVacio) {
 }
 
 TEST_F(TestDiccionarios05, Contiene) {
-	auto c0 = ej05::Conjunto<int>();
-	EXPECT_FALSE(c0.esta(10));
-	c0.inserta(10);
-	EXPECT_TRUE(c0.esta(10));
+	EXPECT_FALSE(c0_.esta(10));
+	c0_.inserta(10);
+	EXPECT_TRUE(c0_.esta(10));
 }
 
 TEST_F(TestDiccionarios05, Inserta) {
-	auto c0 = ej05::Conjunto<int>();
-	EXPECT_NO_THROW(c0.inserta(10));
-	EXPECT_THROW(c0.inserta(10), EYaEnConjunto);
+	EXPECT_NO_THROW(c0_.inserta(10));
+	EXPECT_THROW(c0_.inserta(10), EYaEnConjunto);
+}
 
-	// Testing colisions
-	for (int i = 11; i < 1000000; i++) {
-		EXPECT_FALSE(c0.esta(i));
-		EXPECT_NO_THROW(c0.inserta(i));
-		EXPECT_TRUE(c0.esta(i));
+TEST_F(TestDiccionarios05, InsertaCollisions) {
+	for (int i = 0; i < 1000000; ++i) {
+		EXPECT_FALSE(c0_.esta(i));
+		EXPECT_NO_THROW(c0_.inserta(i));
+		EXPECT_TRUE(c0_.esta(i));
 	}
+}
+
+TEST_F(TestDiccionarios05, Equals) {
+	EXPECT_EQ(c0_, ej05::Conjunto<int>());
+	EXPECT_EQ(c1_, c1_);
+	ej05::Conjunto<int> c1copia = ej05::Conjunto<int>();
+	for (int i = 0; i < 20; ++i)
+		c1copia.inserta(i);
+	EXPECT_EQ(c1_, c1copia);
+
+	EXPECT_NE(c1_, c2_);
+}
+
+TEST_F(TestDiccionarios05, Interseccion) {
+	EXPECT_EQ(c0_.interseccion(c1_), ej05::Conjunto<int>());
+	EXPECT_EQ(c1_.interseccion(c0_), ej05::Conjunto<int>());
+
+	EXPECT_EQ(c1_.interseccion(c2_), c1interc2_);
+	EXPECT_EQ(c2_.interseccion(c1_), c1interc2_);
 }
 
 class TestDiccionariosC08 : public :: TestDiccionarios {

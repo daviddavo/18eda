@@ -55,7 +55,7 @@ namespace ej05 {
             libera(_tabla);
         }
 
-        bool esta(const T &elem) {
+        const bool esta(const T &elem) const {
             // Obtenemos el índice asociado a esa clave
             unsigned int ind = ::h(elem) % _tabla._tam;
 
@@ -70,10 +70,19 @@ namespace ej05 {
             insertaAux(_tabla, elem);
         }
 
-        Conjunto<T> & interseccion(Conjunto<T> & conj) {
+        Conjunto<T> interseccion(const Conjunto<T> & conj) {
             Conjunto<T> ret = Conjunto<T>();
 
-            
+            // Los conjuntos no están ordenados, por lo que...
+            ConstIterator it = cbegin();
+            while (it != cend()) {
+                if (conj.esta(it.elem()))
+                    ret.inserta(it.elem());
+
+                it.next();
+            }
+
+            return ret;
         }
 
         class ConstIterator {
@@ -113,7 +122,7 @@ namespace ej05 {
             unsigned int _ind;  // Como el indice en la tabla
         };
 
-        ConstIterator cbegin() {
+        ConstIterator cbegin() const {
             unsigned int ind = 0;
             Nodo * act = _tabla._v[ind];
             while (ind < _tabla._tam-1 && act == NULL) {
@@ -121,11 +130,31 @@ namespace ej05 {
                 act = _tabla._v[ind];
             }
 
-            return ConstInterator(_tabla, act, ind);
+            return ConstIterator(_tabla, act, ind);
         }
 
-        ConstIterator cend() {
-            return Iterator(_tabla, NULL, 0);
+        ConstIterator cend() const {
+            return ConstIterator(_tabla, NULL, 0);
+        }
+
+        bool operator==(const Conjunto<T> & other) const {
+            ConstIterator it = cbegin();
+
+            while (it != cend()) {
+                if (!other.esta(it.elem())) return false;
+                it.next();
+            }
+            ConstIterator it2 = other.cbegin();
+            while (it2 != other.cend()) {
+                if (!esta(it2.elem())) return false;
+                it2.next();
+            }
+
+            return true;
+        }
+
+        bool operator!=(const Conjunto<T> & other) const {
+            return !(*this == other);
         }
 
     protected:
