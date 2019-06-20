@@ -49,6 +49,11 @@ namespace ej05 {
                 _tabla._v[i] = nullptr; // Debugging
         }
 
+        Conjunto(const Conjunto<T> & conj) : Conjunto(conj._tabla._tam) {
+            for (ConstIterator it = conj.cbegin(); it != conj.cend(); it.next())
+                insertaAux(_tabla, it.elem());
+        }
+
         Conjunto() : Conjunto(TAM_INICIAL) {}
 
         ~Conjunto() {
@@ -77,9 +82,20 @@ namespace ej05 {
             ConstIterator it = cbegin();
             while (it != cend()) {
                 if (conj.esta(it.elem()))
-                    ret.inserta(it.elem());
+                    ret.insertaAux(ret._tabla, it.elem());
 
                 it.next();
+            }
+
+            return ret;
+        }
+
+        Conjunto<T> either(const Conjunto<T> & conj) {
+            Conjunto<T> ret = Conjunto<T>(conj);
+
+            for (ConstIterator it = cbegin(); it != cend(); it.next()) {
+                if (!ret.esta(it.elem()))
+                    ret.insertaAux(ret._tabla, it.elem());
             }
 
             return ret;
