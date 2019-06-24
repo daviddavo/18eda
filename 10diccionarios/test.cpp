@@ -206,10 +206,18 @@ class TestDiccionarios06 : public :: testing::Test {
 	}
 };
 
+// Siendo la funcion hash(int) return int;
 TEST_F(TestDiccionarios06, IndiceRadial) {
-	EXPECT_EQ((DiccionarioRadial<int, int>(d0_)).indRadial(), 0);
-	d0_.inserta(0, 5);
-	EXPECT_EQ((DiccionarioRadial<int, int>(d0_)).indRadial(), (unsigned)(DiccionarioHash<int,int>::TAM_INICIAL));
+	int i;
+	for (i = 0; i < 8; ++i) {
+		EXPECT_EQ((DiccionarioRadial<int, int>(d0_)).indRadial(), (unsigned)(DiccionarioHash<int,int>::TAM_INICIAL)*i);
+		d0_.inserta(i*8, 0);
+	}
+
+	for (; i < 15; ++i) {
+		EXPECT_EQ((DiccionarioRadial<int, int>(d0_)).indRadial(), 16*i-8*8);
+		d0_.inserta(i*16, 0);
+	}
 }
 
 class TestDiccionariosC08 : public :: TestDiccionarios {
