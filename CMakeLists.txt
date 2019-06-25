@@ -26,6 +26,7 @@ target_include_directories(dict INTERFACE 10diccionarios/arbol_busqueda 10diccio
 add_executable(testLineales 08lineales/test.cpp)
 add_executable(testArboles 09arboles/test.cpp)
 add_executable(testDiccionarios 10diccionarios/test.cpp)
+add_executable(testAplicaciones 11aplicaciones/test.cpp)
 
 add_executable(c06 09arboles/c06/c06.cpp)
 add_executable(c07 09arboles/c07/c07.cpp)
@@ -35,6 +36,8 @@ add_executable(c08 10diccionarios/c08/c08.cpp)
 target_link_libraries(testLineales ${GTEST_LIBRARY} lineales)
 target_link_libraries(testArboles ${GTEST_LIBRARY} arbin)
 target_link_libraries(testDiccionarios ${GTEST_LIBRARY} dict lineales)
+target_link_libraries(testAplicaciones ${GTEST_LIBRARY} arbin dict lineales)
+
 target_link_libraries(c06 arbin)
 target_link_libraries(c07 arbin)
 target_link_libraries(c08 lineales dict)
@@ -54,6 +57,11 @@ gtest_add_tests(
 
 gtest_add_tests(
     TARGET  testDiccionarios
+    TEST_LIST myTests_targets
+)
+
+gtest_add_tests(
+    TARGET testAplicaciones
     TEST_LIST myTests_targets
 )
 
