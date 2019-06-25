@@ -18,9 +18,13 @@ class BigVector {
         return _dicc.valorPara(i);
     }
 
-    BigVector & productoEscalar(const BigVector & other) const {
-        for (auto it = _dicc.cbegin(), it != _dicc.cend(); it.next()) {
-            
+    BigVector productoEscalar(const BigVector & other) const {
+        BigVector ret = BigVector();
+
+        for (auto it = _dicc.cbegin(); it != _dicc.cend(); it.next()) {
+
         }
+
+        return ret;
     }
 };
