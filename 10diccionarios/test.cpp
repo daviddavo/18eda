@@ -101,9 +101,7 @@ TEST_F(TestDiccionarios03, erase) {
 	EXPECT_THROW(d0mejorado.erase(d0mejorado.end()), EAccesoInvalido);
 	auto it = d0mejorado.erase(d0mejorado.begin());
 
-	// FIXME: Throws EAccesoNoValido
 	EXPECT_EQ(d0mejorado, d0mejoradoBorrado);
-	EXPECT_TRUE(false);	// Ejercicio por terminar
 }
 
 class TestDiccionarios05 : public :: testing::Test {

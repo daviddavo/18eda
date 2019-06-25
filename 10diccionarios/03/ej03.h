@@ -53,10 +53,9 @@ namespace ej03 {
          */
         typename Diccionario<tClave, tValor>::Iterator erase(const typename Diccionario<tClave, tValor>::Iterator & it) {
             if (it == this->end()) throw EAccesoInvalido();
-            this->borra(it.clave());
 
-            // this->borraAux(this->_ra, it.clave())
-            return this->end();
+            this->borra(it.clave());
+            return this->busca(it.clave());
         }
     };
 }
