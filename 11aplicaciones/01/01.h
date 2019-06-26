@@ -13,17 +13,20 @@ class BigVector {
         else _dicc.inserta(i, val);
     }
 
-    double valorDe(unsigned long i) {
+    double valorDe(unsigned long i) const {
         if (!_dicc.contiene(i)) return 0;
         return _dicc.valorPara(i);
     }
 
+    // Con una buena función hash, la complejidad de esta función es de n,
+    // de ser mala, la complejidad puede ser n^2 en el peor de los casos
     BigVector productoEscalar(const BigVector & other) const {
         BigVector ret = BigVector();
 
-        auto it1 = _dicc.cbegin(), it2 = other._dicc.cbegin();
-        while (it1 != _dicc.cend() && it2 != other._dicc.cbegin() ) {
-            if (it1.clave() == it2.clave()) ret.ponValor(it1.clave(), it1.valor()*it2.valor());
+        auto it1 = _dicc.cbegin();
+        while (it1 != _dicc.cend()) {
+            ret.ponValor(it1.clave(), it1.valor() * other.valorDe(it1.clave()));
+            it1.next();
         }
 
         return ret;
@@ -31,5 +34,9 @@ class BigVector {
 
     bool operator==(const BigVector & other) const {
         return _dicc == other._dicc;
+    }
+
+    bool operator!=(const BigVector & other) const {
+        return _dicc != other._dicc;
     }
 };

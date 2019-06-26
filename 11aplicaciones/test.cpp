@@ -9,11 +9,26 @@ class TestAplicaciones01 : public :: TestAplicaciones {
     protected:
     BigVector _bv0;
     BigVector _bv1;
+    BigVector _bv2;
+    BigVector _bv3;
+    BigVector _bv2squared;
 
     void SetUp() override {
+        // _bv1 es el "vector unitario"
+        for (int i = 0; i < 1024; ++i)
+            _bv1.ponValor(i, 1);
+
         // _bv0 always 0
-        for (int i = 0; i < 255; i++)
-            _bv1.ponValor(i, i);
+        for (int i = 0; i < 256; i++)
+            _bv2.ponValor(i, i);
+        
+        for (int i = 256; i < 512; i++)
+            _bv3.ponValor(i, i);
+
+        // bv2 y bv3 son ortogonales
+
+        for (int i = 0; i < 256; i++)
+            _bv2squared.ponValor(i, i*i);
     }
 };
 
@@ -24,19 +39,31 @@ TEST_F(TestAplicaciones01, BigVector_create) {
 }
 
 TEST_F(TestAplicaciones01, BigVector_ponValorValorDe) {
-    for (int i = 0; i < 255; ++i)
-        ASSERT_EQ(_bv1.valorDe(i), i);
+    for (int i = 0; i < 256; ++i)
+        ASSERT_EQ(_bv2.valorDe(i), i);
 
     for (int i = 0; i < 5; i++)
-        _bv1.ponValor(i, 0);
+        _bv2.ponValor(i, 0);
 
     for (int i = 0; i < 5; ++i)
-        ASSERT_EQ(_bv1.valorDe(i), 0);
+        EXPECT_EQ(_bv2.valorDe(i), 0);
 }
 
 TEST_F(TestAplicaciones01, BigVector_productoEscalar) {
-    ASSERT_EQ(_bv0.productoEscalar(_bv1), _bv0);
-    ASSERT_EQ(_bv1.productoEscalar(_bv0), _bv0);
+    EXPECT_EQ(_bv0.productoEscalar(_bv2), _bv0);
+    EXPECT_EQ(_bv2.productoEscalar(_bv0), _bv0);
+    EXPECT_EQ(_bv0.productoEscalar(_bv0), _bv0);
+    EXPECT_EQ(_bv2.productoEscalar(_bv3), _bv0);
+    EXPECT_EQ(_bv3.productoEscalar(_bv2), _bv0);
+    ASSERT_NE(_bv2.productoEscalar(_bv2), _bv0);
+    EXPECT_EQ(_bv2.productoEscalar(_bv2), _bv2squared);
+
+    EXPECT_EQ(_bv0.productoEscalar(_bv1), _bv0);
+    EXPECT_EQ(_bv1.productoEscalar(_bv1), _bv1);
+    EXPECT_EQ(_bv2.productoEscalar(_bv1), _bv2);
+    EXPECT_EQ(_bv1.productoEscalar(_bv2), _bv2);
+    EXPECT_EQ(_bv1.productoEscalar(_bv3), _bv3);
+    EXPECT_EQ(_bv3.productoEscalar(_bv1), _bv3);
 }
 
 int main(int argc, char **argv) {
