@@ -34,6 +34,11 @@ TEST_F(TestAplicaciones01, BigVector_ponValorValorDe) {
         ASSERT_EQ(_bv1.valorDe(i), 0);
 }
 
+TEST_F(TestAplicaciones01, BigVector_productoEscalar) {
+    ASSERT_EQ(_bv0.productoEscalar(_bv1), _bv0);
+    ASSERT_EQ(_bv1.productoEscalar(_bv0), _bv0);
+}
+
 int main(int argc, char **argv) {
     testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();

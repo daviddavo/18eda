@@ -21,10 +21,15 @@ class BigVector {
     BigVector productoEscalar(const BigVector & other) const {
         BigVector ret = BigVector();
 
-        for (auto it = _dicc.cbegin(); it != _dicc.cend(); it.next()) {
-
+        auto it1 = _dicc.cbegin(), it2 = other._dicc.cbegin();
+        while (it1 != _dicc.cend() && it2 != other._dicc.cbegin() ) {
+            if (it1.clave() == it2.clave()) ret.ponValor(it1.clave(), it1.valor()*it2.valor());
         }
 
         return ret;
+    }
+
+    bool operator==(const BigVector & other) const {
+        return _dicc == other._dicc;
     }
 };

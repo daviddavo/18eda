@@ -198,11 +198,33 @@ TEST_F(TestDiccionarios05, Diferencia) {
 class TestDiccionarios06 : public :: testing::Test {
 	protected:
 	DiccionarioHash<int, int> d0_;
+	DiccionarioHash<int, int> d1_;
 
 	void SetUp() override {
 		// d0_ is empty
+
+		for (int i = 0; i < 10; ++i)
+			d1_.inserta(i, i);
 	}
 };
+
+class TestDiccionariosHash : public :: TestDiccionarios06 {};
+
+TEST_F(TestDiccionariosHash, Equals) {
+	EXPECT_EQ(d0_, (DiccionarioHash<int,int>()));
+	EXPECT_NE(d1_, d0_);
+	EXPECT_EQ(d1_, (DiccionarioHash<int,int>(d1_)));
+
+	auto d1prima = DiccionarioHash<int,int>();
+
+	for (int i = 0; i < 10; ++i)
+		d1prima.inserta(i, i);
+	
+	EXPECT_EQ(d1_, d1prima);
+
+	d1prima.inserta(1,2);
+	EXPECT_NE(d1_, d1prima);
+}
 
 // Siendo la funcion hash(int) return int;
 TEST_F(TestDiccionarios06, IndiceRadial) {

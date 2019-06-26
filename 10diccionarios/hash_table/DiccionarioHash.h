@@ -164,7 +164,30 @@ public:
 	bool esVacio() const {
 		return _tabla._numElems == 0;
 	}
-	
+
+	/**
+	 * Comparador entre diccionarios
+	 */
+	bool operator==(const DiccionarioHash<tClave, tValor> & other) const {
+		if (this->_tabla._numElems != other._tabla._numElems) return false;
+		for (int i = 0; i < _tabla._tam; ++i) {
+			auto n1 = _tabla._v[i], n2 = other._tabla._v[i];
+			while (n1 != NULL && n2 != NULL) {
+				if ( (n1 == NULL ^ n2 == NULL) & 0b1) return false;
+				if (n1->_clave != n2->_clave) return false;
+				if (n1->_valor != n2->_valor) return false;
+
+				n1 = n1->_sig;
+				n2 = n2->_sig;
+			}
+		}
+
+		return true;
+	}
+
+	bool operator!=(const DiccionarioHash<tClave, tValor> & other) const {
+		return !(*this == other);
+	}
 	
 	// //
 	// ITERADOR CONSTANTE Y FUNCIONES RELACIONADAS
