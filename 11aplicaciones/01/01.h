@@ -32,6 +32,18 @@ class BigVector {
         return ret;
     }
 
+    BigVector suma(const BigVector & other) const {
+        BigVector ret = BigVector(other);
+
+        auto it1 = _dicc.cbegin();
+        while (it1 != _dicc.cend()) {
+            ret.ponValor(it1.clave(), ret.valorDe(it1.clave()) + it1.valor());
+            it1.next();
+        }
+
+        return ret;
+    }
+
     bool operator==(const BigVector & other) const {
         return _dicc == other._dicc;
     }

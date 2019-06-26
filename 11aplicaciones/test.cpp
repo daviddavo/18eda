@@ -11,7 +11,9 @@ class TestAplicaciones01 : public :: TestAplicaciones {
     BigVector _bv1;
     BigVector _bv2;
     BigVector _bv3;
+    BigVector _bv2pbv3;
     BigVector _bv2squared;
+    BigVector _bv2twice;
 
     void SetUp() override {
         // _bv1 es el "vector unitario"
@@ -26,9 +28,14 @@ class TestAplicaciones01 : public :: TestAplicaciones {
             _bv3.ponValor(i, i);
 
         // bv2 y bv3 son ortogonales
+        for (int i = 0; i < 512; i++)
+            _bv2pbv3.ponValor(i, i);
 
         for (int i = 0; i < 256; i++)
             _bv2squared.ponValor(i, i*i);
+
+        for (int i = 0; i < 256; i++)
+            _bv2twice.ponValor(i, 2*i);
     }
 };
 
@@ -64,6 +71,22 @@ TEST_F(TestAplicaciones01, BigVector_productoEscalar) {
     EXPECT_EQ(_bv1.productoEscalar(_bv2), _bv2);
     EXPECT_EQ(_bv1.productoEscalar(_bv3), _bv3);
     EXPECT_EQ(_bv3.productoEscalar(_bv1), _bv3);
+}
+
+TEST_F(TestAplicaciones01, BigVector_suma) {
+    EXPECT_EQ(_bv0.suma(_bv0), _bv0);
+    EXPECT_EQ(_bv0.suma(_bv1), _bv1);
+    EXPECT_EQ(_bv0.suma(_bv2), _bv2);
+    EXPECT_EQ(_bv0.suma(_bv3), _bv3);
+
+    EXPECT_EQ(_bv1.suma(_bv0), _bv1);
+    EXPECT_EQ(_bv2.suma(_bv0), _bv2);
+    EXPECT_EQ(_bv3.suma(_bv0), _bv3);
+
+    EXPECT_EQ(_bv2.suma(_bv3), _bv2pbv3);
+    EXPECT_EQ(_bv3.suma(_bv2), _bv2pbv3);
+
+    EXPECT_EQ(_bv2.suma(_bv2), _bv2twice);
 }
 
 int main(int argc, char **argv) {
