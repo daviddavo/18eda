@@ -50,3 +50,13 @@ test diccionarios:
     - apk add clang
   script:
     - build/testDiccionarios
+
+test examenes:
+  stage: test
+  image: alpine
+  tags:
+    - docker
+  before_script:
+    - apk add clang
+  script:
+    - build/testE*

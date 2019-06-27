@@ -70,12 +70,14 @@ file(GLOB_RECURSE files "12examenes/*/test.cpp")
 foreach (file ${files})
     string(REPLACE "${CMAKE_SOURCE_DIR}/12examenes/" "" testname ${file})
     string(REPLACE "/test.cpp" "" testname ${testname})
-    string(REPLACE "/" "_" testname ${testname})
+    string(REPLACE "/" "_" testname E${testname})
     message("F: ${file}, T: ${testname}")
-    add_executable(${testname} ${file})
-    target_link_libraries(${testname} ${GTEST_LIBRARY})
+    set(testTarget test${testname})
+
+    add_executable(${testTarget} ${file})
+    target_link_libraries(${testTarget} ${GTEST_LIBRARY})
     gtest_add_tests(
-        TARGET ${testname}
+        TARGET ${testTarget}
         TEST_LIST tests_examen
         TEST_PREFIX ${testname}.
     )
