@@ -19,9 +19,12 @@ void ParqueNatural::an_ecosistema(const string& ecosistema) {
 }
 
 void ParqueNatural::InfoEcosistema::an_ejemplares(const tEspecie & especie, int n) {
-    if (_nEspecies.contiene(especie)) n += _nEspecies.valorPara(especie);
+    if (_nEspecies.contiene(especie))
+        n += _nEspecies.valorPara(especie);
+    else 
+        _recientes.pon_ppio(especie);
+    
     _nEspecies.inserta(especie, n);
-    _recientes.pon_final(especie);
 }
 
 /* 

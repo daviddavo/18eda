@@ -7,6 +7,7 @@ class TestParquesNaturales : public ::  testing::Test {
     ParqueNatural _pn1;
 
     Lista<tEspecie> _pn1lista;
+    Lista<tEspecie> _pn1Alfabetico;
     Lista<tEspecie> _egqetyaLista;
 
     void SetUp() override {
@@ -14,14 +15,17 @@ class TestParquesNaturales : public ::  testing::Test {
         _pn1.an_ecosistema("elgatoqueestatristeyazul");
         _pn1.an_ecosistema("ecosistemavacio");
 
-        _pn1.an_ejemplares("test", "gato", 5);
         _pn1.an_ejemplares("test", "perro", 2);
+        _pn1.an_ejemplares("test", "gato", 5);
         _pn1.an_ejemplares("elgatoqueestatristeyazul", "gato", 1);
 
-        _egqetyaLista.pon_final("gato");
+        _egqetyaLista.pon_ppio("gato");
 
-        _pn1lista.pon_final("gato");
-        _pn1lista.pon_final("perro");
+        _pn1lista.pon_ppio("perro");
+        _pn1lista.pon_ppio("gato");
+
+        _pn1Alfabetico.pon_final("gato");
+        _pn1Alfabetico.pon_final("perro");
     }
 };
 
@@ -52,7 +56,7 @@ TEST_F(TestParquesNaturales, ContarEjemplaresParque) {
 
 TEST_F(TestParquesNaturales, ListaEjemplares) {
     EXPECT_EQ(_pn0.lista_especies_parque(), Lista<tEspecie>());
-    EXPECT_EQ(_pn1.lista_especies_parque(), _pn1lista);
+    EXPECT_EQ(_pn1.lista_especies_parque(), _pn1Alfabetico);
 }
 
 TEST_F(TestParquesNaturales, ListaEspeciesEcosistema) {

@@ -68,7 +68,7 @@ gtest_add_tests(
 
 file(GLOB_RECURSE files "12examenes/*/test.cpp")
 foreach (file ${files})
-string(REPLACE "/test.cpp" "" folder ${file})
+    string(REPLACE "/test.cpp" "" folder ${file})
     string(REPLACE "${CMAKE_SOURCE_DIR}/12examenes/" "" testname ${folder})
     string(REPLACE "/" "_" testname E${testname})
     message("F: ${file}, T: ${testname}")
@@ -83,6 +83,17 @@ string(REPLACE "/test.cpp" "" folder ${file})
         TEST_LIST tests_examen
         TEST_PREFIX ${testname}.
     )
+endforeach(file ${files})
+
+file(GLOB_RECURSE files "12examenes/*/main.cpp")
+foreach (file ${files})
+    string(REPLACE "/main.cpp" "" folder ${file})
+    string(REPLACE "${CMAKE_SOURCE_DIR}/12examenes/" "" targetName ${folder})
+    string(REPLACE "/" "_" targetName E${targetName})
+
+    file(GLOB everything ${folder}/*.h ${folder}/*.cpp)
+    list(REMOVE_ITEM everything ${folder}/test.cpp)
+    add_executable(${targetName} ${everything})
 endforeach(file ${files})
 
 # set each target to timeout if not finished within 10 sec
