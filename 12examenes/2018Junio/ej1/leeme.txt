@@ -1,0 +1,48 @@
+Material proporcionado
+======================
+main.cpp: El programa principal que realiza la prueba 
+de la operación implementada (no debe modificarse).
+
+Lista.h: Implementación del TAD Lista basada en nodos
+doblemente enlazados, que contiene la operación 'repartir' 
+a implementar al principio de la clase.
+Aparte de implementar la operación, debe 
+indicarse y justificarse su complejidad, en el comentario
+que precede a la misma.
+
+Casos de prueba:
+- Entrada: 0_ejemplos.in
+- Salida: 0_ejemplos.out
+
+
+Formato de los archivos de entrada
+==================================
+Cada línea contiene la lista de enteros sobre la que operar 
+(en caso de lista vacía, la línea estará vacía)
+
+Formato de los archivos de salida
+=================================
+
+Para cada linea de la forma 
+
+Xo X1 X2 ... Xn
+
+se genera una linea de la forma
+
+repartir Xo X1 X2 ... Xn => Yo Y1 Y2 ... Yn #Zo Z1 Z2 ... Zn
+
+donde:
+
+ (1) Yo Y1 Y2 ... Yn es el resultado de aplicar la 
+     operación 'repartir' sobre la lista Xo X1 X2 ... Xn
+ (2) Zo Z1 Z2 ... Zn es Yo Y1 Y2 ... Yn escrita al revés 
+     (es decir, Zo = Yn, Z1 = Yn-1 .... Zn = Yo) 	 
+	 
+Por ejemplo, cuando se procesa la línea:
+
+10 5 3 10 3 20 45 3 10
+
+se genera como salida:
+
+repartir 10 5 3 10 3 20 45 3 10  => 5 3 3 3 10 10 20 45 10 #10 45 20 10 10 3 3 3 5 
+
