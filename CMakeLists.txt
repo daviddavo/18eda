@@ -68,13 +68,15 @@ gtest_add_tests(
 
 file(GLOB_RECURSE files "12examenes/*/test.cpp")
 foreach (file ${files})
-    string(REPLACE "${CMAKE_SOURCE_DIR}/12examenes/" "" testname ${file})
-    string(REPLACE "/test.cpp" "" testname ${testname})
+string(REPLACE "/test.cpp" "" folder ${file})
+    string(REPLACE "${CMAKE_SOURCE_DIR}/12examenes/" "" testname ${folder})
     string(REPLACE "/" "_" testname E${testname})
     message("F: ${file}, T: ${testname}")
     set(testTarget test${testname})
 
-    add_executable(${testTarget} ${file})
+    file(GLOB everything ${folder}/*.h ${folder}/*.cpp)
+    list(REMOVE_ITEM everything ${folder}/main.cpp)
+    add_executable(${testTarget} ${everything})
     target_link_libraries(${testTarget} ${GTEST_LIBRARY})
     gtest_add_tests(
         TARGET ${testTarget}
