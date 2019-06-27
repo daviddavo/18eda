@@ -37,6 +37,7 @@ target_link_libraries(testLineales ${GTEST_LIBRARY} lineales)
 target_link_libraries(testArboles ${GTEST_LIBRARY} arbin)
 target_link_libraries(testDiccionarios ${GTEST_LIBRARY} dict lineales)
 target_link_libraries(testAplicaciones ${GTEST_LIBRARY} arbin dict lineales)
+# target_link_libraries(testExamenes ${GTEST_LIBRARY})
 
 target_link_libraries(c06 arbin)
 target_link_libraries(c07 arbin)
@@ -51,8 +52,8 @@ gtest_add_tests(
 )
 
 gtest_add_tests(
-    TARGET testArboles
-    TEST_LIST myTests_targets
+    TARGET  testArboles
+    TEST_LIST   myTests_targets
 )
 
 gtest_add_tests(
@@ -65,5 +66,21 @@ gtest_add_tests(
     TEST_LIST myTests_targets
 )
 
+file(GLOB_RECURSE files "12examenes/*/test.cpp")
+foreach (file ${files})
+    string(REPLACE "${CMAKE_SOURCE_DIR}/12examenes/" "" testname ${file})
+    string(REPLACE "/test.cpp" "" testname ${testname})
+    string(REPLACE "/" "_" testname ${testname})
+    message("F: ${file}, T: ${testname}")
+    add_executable(${testname} ${file})
+    target_link_libraries(${testname} ${GTEST_LIBRARY})
+    gtest_add_tests(
+        TARGET ${testname}
+        TEST_LIST tests_examen
+        TEST_PREFIX ${testname}.
+    )
+endforeach(file ${files})
+
 # set each target to timeout if not finished within 10 sec
 set_tests_properties(${myTests_targets} PROPERTIES TIMEOUT 10)
+set_tests_properties(${test_examen} PROPERTIES TIMEOUT 10)
