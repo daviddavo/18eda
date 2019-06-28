@@ -5,6 +5,7 @@
 #include "pila.h"
 
 #include "01/ej01.h"
+#include "04/ej04.h"
 
 using namespace std;
 
@@ -37,6 +38,12 @@ TEST_F(TestLineales01, suma) {
     ss.str("");
     ej01(ss, 12345);
     EXPECT_EQ(ss.str(), "1 + 2 + 3 + 4 + 5 = 15");
+}
+
+class TestLineales04 : public :: TestLineales {};
+
+TEST_F(TestLineales04, Posfija) {
+    EXPECT_EQ(ej04::posFija("821-/82+*"), 80);
 }
 
 int main(int argc, char **argv) {
