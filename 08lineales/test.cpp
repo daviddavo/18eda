@@ -10,6 +10,7 @@
 #include "05/ej05.h"
 #include "07/ej07.h"
 #include "18/ej18.h"
+#include "19/ej19.h"
 
 using namespace std;
 
@@ -139,6 +140,26 @@ TEST_F(TestLineales18, InsertarPosicion) {
 
     l1sin7.insertarPorPosicion(7,7);
     EXPECT_EQ(l1sin7, _l1);
+}
+
+class TestLineales19 : public TestListas {
+    protected:
+    ej19::ListaMejorada<int> _l1i;
+
+    void SetUp() override {
+        TestListas::SetUp();
+
+        for (int i = 0; i < 5; i++) {
+            _l1i.pon_final(i);
+            _l1i.pon_final(9-i);
+        }
+    }
+};
+
+TEST_F(TestLineales19, Intercalar) {
+    ej19::ListaMejorada<int> l1mejorada = ej19::ListaMejorada<int>(_l1);
+    l1mejorada.intercalar();
+    EXPECT_EQ(l1mejorada, _l1i);
 }
 
 int main(int argc, char **argv) {
