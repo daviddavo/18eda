@@ -160,6 +160,23 @@ TEST_F(TestLineales19, Intercalar) {
     ej19::ListaMejorada<int> l1mejorada = ej19::ListaMejorada<int>(_l1);
     l1mejorada.intercalar();
     EXPECT_EQ(l1mejorada, _l1i);
+    ej19::ListaMejorada<int> l0mejorada = ej19::ListaMejorada<int>(_l0);
+    l0mejorada.intercalar();
+    EXPECT_EQ(l0mejorada, _l0);
+    _l0.pon_final(1);
+    l0mejorada.pon_final(1);
+    l0mejorada.intercalar();
+    EXPECT_EQ(l0mejorada, _l0);
+    _l0.pon_final(2);
+    l0mejorada.pon_final(2);
+    l0mejorada.intercalar();
+    EXPECT_EQ(l0mejorada, _l0);
+    _l0.quita_final();
+    _l0.pon_final(3);
+    _l0.pon_final(2);
+    l0mejorada.pon_final(3);
+    l0mejorada.intercalar();
+    EXPECT_EQ(l0mejorada, _l0);
 }
 
 int main(int argc, char **argv) {

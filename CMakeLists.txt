@@ -97,5 +97,5 @@ foreach (file ${files})
 endforeach(file ${files})
 
 # set each target to timeout if not finished within 10 sec
-set_tests_properties(${myTests_targets} PROPERTIES TIMEOUT 10)
-set_tests_properties(${test_examen} PROPERTIES TIMEOUT 10)
+set_tests_properties(${myTests_targets} PROPERTIES TIMEOUT 1)
+set_tests_properties(${test_examen} PROPERTIES TIMEOUT 1)

@@ -10,20 +10,26 @@ namespace ej19 {
         ListaMejorada(const Lista<T> & lista) : Lista<T>(lista) {}
 
         void intercalar() {
-            auto * actCabeza = this->_prim;
+            if (this->_prim == this->_ult || this->_prim->_sig == this->_ult)
+                return;
 
-            while (actCabeza != NULL) {    
-                auto * nextUlt = this->_ult->_ant;
+            auto * actCabeza = this->_prim;
+            auto * actUlt = this->_ult;
+
+            while (actCabeza->_sig != this->_ult && actCabeza != this->_ult) {    
+                auto * nextUlt = actUlt->_ant;
                 auto * nextCabeza = actCabeza->_sig;
 
-                this->_ult->_sig = actCabeza->_sig;
-                actCabeza->_sig->_ant = this->_ult;
+                actUlt->_sig = actCabeza->_sig;
+                actCabeza->_sig->_ant = actUlt;
 
-                actCabeza->_sig = this->_ult;
-                this->_ult->_ant = actCabeza;
+                actCabeza->_sig = actUlt;
+                actUlt->_ant = actCabeza;
 
-                this->_ult = nextUlt;
+                actUlt = nextUlt;
                 actCabeza = nextCabeza;
+                this->_ult = actUlt;
+                this->_ult->_sig = NULL;
             }
         }
     };
