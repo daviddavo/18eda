@@ -3,11 +3,13 @@
 #include "gtest/gtest.h"
 
 #include "pila.h"
+#include "lista.h"
 
 #include "01/ej01.h"
 #include "04/ej04.h"
 #include "05/ej05.h"
 #include "07/ej07.h"
+#include "18/ej18.h"
 
 using namespace std;
 
@@ -98,6 +100,45 @@ TEST_P(TestLineales07, Invertir) {
     tExpected exp = GetParam();
     ej07::invertir(exp.in, exp.n);
     EXPECT_EQ(exp.in, exp.out);
+}
+
+class TestListas : public ::testing::Test {
+    protected:
+    Lista<int> _l0;
+    Lista<int> _l1;
+    
+    void SetUp() override {
+        for (int i = 0; i < 10; i++)
+            _l1.pon_final(i);      
+    }
+};
+
+class TestLineales18 : public TestListas {};
+
+TEST_F(TestLineales18, InsertarPosicion) {
+    ej18::ListaMejorada<int> l1sin3;
+
+    EXPECT_THROW(l1sin3.insertarPorPosicion(0, -3), EAccesoInvalido);
+    EXPECT_THROW(l1sin3.insertarPorPosicion(0, 57), EAccesoInvalido);
+
+    for (int i = 0; i < 3; i++)
+        l1sin3.insertarPorPosicion(i, i);
+    for (int i = 4; i < 10; i++)
+        l1sin3.insertarPorPosicion(i, i-1); // Poner al final (falta el 3)
+
+    // Testeamos la insercción en la primera mitad
+    l1sin3.insertarPorPosicion(3,3);
+    EXPECT_EQ(l1sin3, _l1);
+
+    // Ahora con la segunda mitad
+    ej18::ListaMejorada<int> l1sin7;
+    for (int i = 0; i < 7; i++)
+        l1sin7.insertarPorPosicion(i, i);
+    for (int i = 8; i < 10; i++)
+        l1sin7.insertarPorPosicion(i, i-1);
+
+    l1sin7.insertarPorPosicion(7,7);
+    EXPECT_EQ(l1sin7, _l1);
 }
 
 int main(int argc, char **argv) {

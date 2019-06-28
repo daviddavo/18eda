@@ -43,7 +43,7 @@ class EAccesoInvalido {};
 template <class T>
 class Lista {
 
-private:
+protected:
 
 	/**
 	 Clase nodo que almacena internamente el elemento (de tipo T),
