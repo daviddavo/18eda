@@ -10,5 +10,6 @@
         "hash_map": "cpp",
         "cstddef": "cpp"
     },
-    "C_Cpp.errorSquiggles": "Disabled"
+    "C_Cpp.errorSquiggles": "Disabled",
+    "cmake.generator": "Unix Makefiles"
 }
