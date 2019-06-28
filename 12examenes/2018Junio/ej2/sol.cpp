@@ -13,15 +13,14 @@
  */
 
 /**
-  FUNCION A IMPLEMENTAR.
-  Aparte de esta función, puedes implementar todas las funciones auxiliares que
-  consideres oportuno. 
-  Debes describir y justificar aquí la complejidad de la implementación realizada:
-  
-  
-
+ * La complejidad de esto es lineal, donde n es el numero de nodos del arbol binario
+ * Se recorre una vez cada nodo, ni una más, ni una menos.
+ * O(n)
+ * 
+ * (Con la implementación de arbol binario por referencias, en el que la copia
+ * tiene coste constante)
 */
-int num_a_salvo(const Arbin<char>& a, int monstruos, int caballeros) {
+int num_a_salvo(const Arbin<char>& a, int monstruos, int & caballeros) {
 	if (a.esVacio()) return 0;
 
 	int ret = 0;
@@ -40,7 +39,8 @@ int num_a_salvo(const Arbin<char>& a, int monstruos, int caballeros) {
 }
 
 int num_a_salvo(const Arbin<char>& a) {
-	return num_a_salvo(a, 0, 0);
+	int basura;
+	return num_a_salvo(a, 0, basura);
 }
 
 
