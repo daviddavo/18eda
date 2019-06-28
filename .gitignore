@@ -51,3 +51,5 @@ googletest-build
 googletest-src
 gtest
 build*
+
+!ejemplos.out
