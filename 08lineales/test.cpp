@@ -7,6 +7,7 @@
 #include "01/ej01.h"
 #include "04/ej04.h"
 #include "05/ej05.h"
+#include "07/ej07.h"
 
 using namespace std;
 
@@ -73,6 +74,30 @@ TEST_F(TestLineales05, Iterativo) {
     stringstream ss;
     ej05::imprimeIterativo(ss, p1);
     EXPECT_EQ(ss.str(), p1str);
+}
+
+typedef struct {
+    int n;
+    Pila<int> in;
+    Pila<int> out;
+} tExpected;
+
+class TestLineales07 : public TestLineales, public ::testing::WithParamInterface<tExpected> {};
+
+INSTANTIATE_TEST_SUITE_P(ITestLineales, TestLineales07, ::testing::Values(
+    tExpected { 0, arrtopila({6,4,3,2,3}), arrtopila({6,4,3,2,3}) },
+    tExpected { 1, arrtopila({6,4,3,2,3}), arrtopila({6,4,3,2,3}) },
+    tExpected { 2, arrtopila({6,4,3,2,3}), arrtopila({6,4,3,3,2}) },
+    tExpected { 3, arrtopila({6,4,3,2,3}), arrtopila({6,4,3,2,3}) },
+    tExpected { 4, arrtopila({6,4,3,2,3}), arrtopila({6,3,2,3,4}) },
+    tExpected { 5, arrtopila({6,4,3,2,3}), arrtopila({3,2,3,4,6}) },
+    tExpected { 6, arrtopila({6,4,3,2,3}), arrtopila({3,2,3,4,6}) }
+));
+
+TEST_P(TestLineales07, Invertir) {
+    tExpected exp = GetParam();
+    ej07::invertir(exp.in, exp.n);
+    EXPECT_EQ(exp.in, exp.out);
 }
 
 int main(int argc, char **argv) {
