@@ -11,6 +11,7 @@
 #include "07/ej07.h"
 #include "18/ej18.h"
 #include "19/ej19.h"
+#include "30/ej30.h"
 
 using namespace std;
 
@@ -177,6 +178,54 @@ TEST_F(TestLineales19, Intercalar) {
     l0mejorada.pon_final(3);
     l0mejorada.intercalar();
     EXPECT_EQ(l0mejorada, _l0);
+}
+
+typedef struct {
+    ej30::ListaMejorada<int> input;
+    int arg1;
+    ej30::ListaMejorada<int> output;
+} tExpected30;
+
+class TestLineales30 : public TestListas {
+    protected:
+    static const int N = 10;
+    ej30::ListaMejorada<int> _l0;
+
+    tExpected30 expArr[N];
+    
+    void SetUp() override {
+        TestListas::SetUp();
+
+        for (int i = 0; i < N; ++i) {
+            for (int j = 0; j < N; ++j) {
+                if (j != i)
+                    expArr[i].output.pon_final(j+1);
+                else
+                    expArr[i].output.pon_ppio(j+1);
+
+                expArr[i].input.pon_final(j+1);
+            }
+
+            expArr[i].arg1 = i+1;
+        }
+    }
+};
+
+TEST_F(TestLineales30, PosicionInvalida) {
+    EXPECT_THROW(_l0.llevarAlPrincipio(0), EAccesoInvalido);
+    EXPECT_THROW(_l0.llevarAlPrincipio(1), EAccesoInvalido);
+    _l0.pon_final(1);
+    EXPECT_THROW(_l0.llevarAlPrincipio(0), EAccesoInvalido);
+    EXPECT_THROW(_l0.llevarAlPrincipio(2), EAccesoInvalido);
+    EXPECT_NO_THROW(_l0.llevarAlPrincipio(1));
+}
+
+TEST_F(TestLineales30, Algorithm) {
+    for (int i = 0; i < N; ++i) {
+        tExpected30 exp = expArr[i];
+        exp.input.llevarAlPrincipio(exp.arg1);
+        EXPECT_EQ(exp.input, exp.output);
+    }
 }
 
 int main(int argc, char **argv) {
