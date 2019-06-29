@@ -1,0 +1,38 @@
+Material proporcionado
+======================
+main.cpp: El programa principal que realiza la prueba de
+la función implementada, y la función a implementar. 
+Aparte de dicha función, pueden implementarse todas
+las funciones auxiliares que se considere oportuno.
+Debe indicarse, así mismo, la complejidad resultante
+en el comentario que precede a la función.
+
+
+Formato de la entrada
+=====================
+Cada línea contiene la descripción del árbol de ganancias
+y pérdidas. 
+Para escribir los árboles se sigue el siguiente convenio:
+-Los árboles vacíos se escriben como #
+-Los árboles simples se escriben como [c],
+ con 'c' el contenido del nodo.
+-Los árboles compuestos se escriben como 
+ (IcD), donde: (i) I es el hijo izquierdo;
+ (ii) c es el contenido de la raiz; 
+ (iii) D es el hijo derecho. 
+
+Formato de la salida
+====================
+Para cada árbol se genera una linea que
+contiene, bien la renta máxima (si el árbol
+es rentable), o bien NO_RENTABLE (si no lo es).
+
+Ejemplo de entrada (árboles de ejemplo dados en el enunciado)
+=============================================================
+((#-9[100])5(#-4[3]))
+(([5]-2[6])2(#-1[-1]))
+
+Salida asociada
+===============
+4
+NO_RENTABLE
