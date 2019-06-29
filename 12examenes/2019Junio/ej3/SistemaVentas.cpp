@@ -6,6 +6,8 @@ NOMBRE Y APELLIDOS:
 
 #include "SistemaVentas.h"
 
+using namespace std;
+
 
   /*
 	 COMPLEJIDAD: Determina aquí, justificadamente, cuál es la complejidad de 

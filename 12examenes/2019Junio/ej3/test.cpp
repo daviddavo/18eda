@@ -4,7 +4,7 @@
 
 class TestVentas : public ::testing::Test {
     
-}
+};
 
 int main(int argc, char **argv) {
     testing::InitGoogleTest(&argc, argv);

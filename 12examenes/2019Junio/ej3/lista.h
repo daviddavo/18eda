@@ -1,52 +1,43 @@
-/*
-NOMBRE Y APELLIDOS:
-
-*/
-
-
-
 /**
   @file lista.h
 
-  Implementaciï¿½n del TAD Lista, utilizando una 
+  Implementación del TAD Lista, utilizando una 
   lista doblemente enlazada.
 
   Estructura de Datos y Algoritmos
-  Facultad de Informï¿½tica
+  Facultad de Informática
   Universidad Complutense de Madrid
 
- (c) Marco Antonio Gï¿½mez Martï¿½n, 2012    Mercedes Gï¿½mez Albarrï¿½n, 2016
+ (c) Marco Antonio Gómez Martín, 2012    Mercedes Gómez Albarrán, 2016
 */
 
 #ifndef __LISTA_H
 #define __LISTA_H
 
-/// Excepciones generadas por algunos mï¿½todos
+/// Excepciones generadas por algunos métodos
 class EListaVacia {};
 class EAccesoInvalido {};
 #include <cassert>
 #include <stddef.h>
-#include<iostream>
-using namespace std;
 
 /**
- Implementaciï¿½n del TAD Lista utilizando una lista doblemente enlazada.
+ Implementación del TAD Lista utilizando una lista doblemente enlazada.
 
  Las operaciones son:
 
- - Crear una lista vacï¿½a: listaVacia: --> Lista. Generadora
- - Aï¿½adir un elemento al final: pon_final: Lista, Elem --> Lista. Generadora
- - Aï¿½adir un elemento al principio: pon_ppio: Lista, Elem --> Lista. Generadora
+ - Crear una lista vacía: listaVacia: --> Lista. Generadora
+ - Añadir un elemento al final: pon_final: Lista, Elem --> Lista. Generadora
+ - Añadir un elemento al principio: pon_ppio: Lista, Elem --> Lista. Generadora
  - Eliminar un elemento por el final: quita_final: Lista -> Lista. Modificadora parcial.
  - Eliminar un elemento por el principio: quita_ppio: Lista -> Lista. Modificadora parcial.
  - Acceder al primer elemento: primero: Lista -> Elem. Observadora parcial.
- - Acceder al ï¿½ltimo elemento: : ultimo: Lista -> Elem. Observadora parcial.
- - Acceder al elemento i-ï¿½simo: elem: Lista -> Elem. Observadora parcial.
+ - Acceder al último elemento: : ultimo: Lista -> Elem. Observadora parcial.
+ - Acceder al elemento i-ésimo: elem: Lista -> Elem. Observadora parcial.
  - Averiguar si la lista tiene elementos: esVacia: Lista-> Bool. Observadora.
- - Obtener el nï¿½mero de elementos de la lista: longitud: Lista -> Int. Observadora.
+ - Obtener el número de elementos de la lista: longitud: Lista -> Int. Observadora.
 
 
- @author Marco Antonio Gï¿½mez Martï¿½n, Mercedes Gï¿½mez Albarrï¿½n
+ @author Marco Antonio Gómez Martín, Mercedes Gómez Albarrán
  */
 
 template <class T>
@@ -57,8 +48,8 @@ private:
 	/**
 	 Clase nodo que almacena internamente el elemento (de tipo T),
 	 y dos punteros, uno al nodo anterior y otro al nodo siguiente.
-	 Ambos punteros podrï¿½an ser NULL si el nodo es el primero
-	 y/o ï¿½ltimo de la lista enlazada.
+	 Ambos punteros podrían ser NULL si el nodo es el primero
+	 y/o último de la lista enlazada.
 	 */
 	class Nodo {
 	public:
@@ -123,7 +114,7 @@ private:
 
 	/**
 	 Elimina todos los nodos de la lista enlazada.
-	 Se admite que la lista pueda sea NULL (no habrï¿½ nada que
+	 Se admite que la lista pueda sea NULL (no habrá nada que
 	 liberar).
 	 */
 
@@ -136,74 +127,22 @@ private:
 	}
 
 
-	// Puntero al primer y ï¿½ltimo elemento
+	// Puntero al primer y último elemento
 	Nodo *_prim, *_ult;
-	// Nï¿½mero de elementos (nï¿½mero de nodos entre _prim y _ult)
+	// Número de elementos (número de nodos entre _prim y _ult)
 	unsigned int _numElems;
-
-	/** Conecta los nodos adyacentes */
-	void extrae(Nodo * n) {
-		n->_ant->_sig = n->_sig;
-		n->_sig->_ant = n->_ant;
-	}
 
 public:
 
-    /*
-	 COMPLEJIDAD: Determina aquï¿½, justificadamente, cuï¿½l es la complejidad de 
-	 la operaciï¿½n
-	 
-	 
-	 
-	*/
-    void estremece() {
-		int pos = _numElems;
-		Nodo * n = _ult;
 
-		while (pos--) {
-			Nodo * nextn = n->_ant;
-
-			if (pos%2 && n != _ult) { // Si es impar y no es el ultimo
-
-				// "Extraemos" el nodo
-				extrae(n);
-				// Como hay que poner los nodos por orden inverso de apariciÃ³n
-				// nos acaban de solucionar la vida. Lo ponemos el Ãºltimo y ya estÃ¡
-				n->_ant = _ult;
-				_ult->_sig = n;
-				_ult = n;
-				_ult->_sig = NULL;
-			}
-
-			n = nextn;
-		}
- 	}
-	
-	void imprime() const {
-	   Nodo* n = _prim;
-      while (n != NULL) {
-		  cout << n->_elem << " ";
-		  n = n->_sig;
-	  }	   
-	}
-
-	void imprime_inv() const {
-	   Nodo* n = _ult;
-      while (n != NULL) {
-		  cout << n->_elem << " ";
-		  n = n->_ant;
-	  }	   
-	}
-
-
-	/** Constructor; operaciï¿½n listaVacia. */
+	/** Constructor; operación listaVacia. */
 	Lista() : _prim(NULL), _ult(NULL), _numElems(0) {}
 
 	/**
-	 Aï¿½ade un nuevo elemento en la cabeza de la lista.
-	 Operaciï¿½n generadora.
+	 Añade un nuevo elemento en la cabeza de la lista.
+	 Operación generadora.
 
-	 @param elem Elemento que se aï¿½ade en la cabecera de la lista.
+	 @param elem Elemento que se añade en la cabecera de la lista.
 	*/
 	void pon_ppio (const T &elem) {
 		_prim = insertaElem(elem, NULL, _prim);
@@ -213,9 +152,9 @@ public:
 	}
 
 	/**
-	 Aï¿½ade un nuevo elemento al final de la Lista (a la "derecha"). Operaciï¿½n modificadora.
+	 Añade un nuevo elemento al final de la Lista (a la "derecha"). Operación modificadora.
 
-	 @param elem Elemento que se aï¿½ade al final de la lista.
+	 @param elem Elemento que se añade al final de la lista.
 	*/
 	void pon_final(const T &elem) {
 		_ult = insertaElem(elem, _ult, NULL);
@@ -228,7 +167,7 @@ public:
 	 Devuelve el valor almacenado en la cabecera de la
 	 Lista. Observadora parcial.
 	 
-	 error: al preguntar por el primero de una lista vacï¿½a
+	 error: al preguntar por el primero de una lista vacía
 	 @return Elemento en la cabecera de la Lista.
 	 */
 	const T &primero() const {
@@ -238,10 +177,10 @@ public:
 	}
 
 	/**
-	 Devuelve el valor almacenado en la ï¿½ltima posiciï¿½n de la Lista (a la "derecha").
+	 Devuelve el valor almacenado en la última posición de la Lista (a la "derecha").
 	 Observadora parcial.
 	 
-	 error: al preguntar por el ï¿½ltimo de una lista vacï¿½a
+	 error: al preguntar por el último de una lista vacía
 	 @return Elemento en la cola de la Lista.
 	 */
 	const T &ultimo() const {
@@ -251,19 +190,19 @@ public:
 	}
 
 	/**
-	 Devuelve el elemento i-ï¿½simo de la lista, teniendo
+	 Devuelve el elemento i-ésimo de la lista, teniendo
 	 en cuenta que el primer elemento (primero())
-	 es el elemento situado en la posiciï¿½n 0 y 
-	 que el ï¿½ltimo (ultimo()) estï¿½ en numElems()-1,
-	 es decir, idx estï¿½ en [0..numElems()-1].
-	 Operaciï¿½n observadora parcial que puede fallar
-	 si se da un ï¿½ndice incorrecto. El ï¿½ndice es
+	 es el elemento situado en la posición 0 y 
+	 que el último (ultimo()) está en numElems()-1,
+	 es decir, idx está en [0..numElems()-1].
+	 Operación observadora parcial que puede fallar
+	 si se da un índice incorrecto. El índice es
 	 entero sin signo, para evitar que se puedan
 	 pedir elementos negativos.
 	 Observadora parcial.
 
 	 error: si idx >= _numElems
-	 @return Elemento en la posiciï¿½n idx de la Lista.
+	 @return Elemento en la posición idx de la Lista.
 	*/
 	const T &elem(unsigned int idx) const {
 		if (idx >= _numElems)
@@ -278,7 +217,7 @@ public:
 	/**
 	 Elimina el primer elemento de la Lista. Observadora parcial.
 
-	 error: intentar eliminar en una Lista vacï¿½a.
+	 error: intentar eliminar en una Lista vacía.
 	*/
 	void quita_ppio() {
 		if (esVacia())
@@ -292,9 +231,9 @@ public:
 	}
 
 	/**
-	 Elimina el ï¿½ltimo elemento de la Lista. Observadora parcial.
+	 Elimina el último elemento de la Lista. Observadora parcial.
 	 
-	 error: intentar eliminar en una Lista vacï¿½a.
+	 error: intentar eliminar en una Lista vacía.
 	*/
 	void quita_final() {
 		if (esVacia())
@@ -308,7 +247,7 @@ public:
 	}
 
 	/**
-	 Operaciï¿½n observadora para saber si una Lista tiene o no elementos.
+	 Operación observadora para saber si una Lista tiene o no elementos.
 
 	 @return true si la Lista no tiene elementos.
 	 */
@@ -318,9 +257,9 @@ public:
 	
 
 	/**
-	 Devuelve el nï¿½mero de elementos que hay en la lista (observadora).
+	 Devuelve el número de elementos que hay en la lista (observadora).
 
-	 @return Nï¿½mero de elementos.
+	 @return Número de elementos.
 	 */
 	unsigned int longitud() const {
 		return _numElems;
@@ -340,7 +279,7 @@ public:
 		copia(other);
 	}
 
-	/** Operador de asignaciï¿½n */
+	/** Operador de asignación */
 	Lista<T> &operator=(const Lista<T> &other) {
 		if (this != &other) {
 			libera();
@@ -349,7 +288,7 @@ public:
 		return *this;
 	}
 
-	/** Operador de comparaciï¿½n. */
+	/** Operador de comparación. */
 	bool operator==(const Lista<T> &rhs) const {
 		bool iguales;
 		if (_numElems != rhs._numElems)
@@ -416,7 +355,7 @@ public:
 	 Devuelve el iterador de lectura al principio de la lista.
 	 
 	 @return iterador al principio de la lista;
-	 coincidirï¿½ con final() si la lista estï¿½ vacï¿½a.
+	 coincidirá con final() si la lista está vacía.
 	 */
 	ConstIterator cbegin() const {
 		return ConstIterator(_prim);
@@ -476,16 +415,16 @@ public:
 	 Devuelve el iterador de escritura al principio de la lista.
 
 	 @return iterador al principio de la lista;
-	 coincidirï¿½ con end() si la lista estï¿½ vacï¿½a.
+	 coincidirá con end() si la lista está vacía.
 	 */
 	Iterator begin()  { 
 		// no lo declaramos como const porque el efecto del iterador va a ser poder modificar la lista
-		// (aunque eso no ocurra en este mï¿½todo)
+		// (aunque eso no ocurra en este método)
 		return Iterator(_prim);
 	}
 
 	/**
-	 Devuelve un iterador de escritura al final del recorrido (fuera de ï¿½ste).
+	 Devuelve un iterador de escritura al final del recorrido (fuera de éste).
 
 	 @return iterador al final del recorrido
 	 */
@@ -493,15 +432,15 @@ public:
 		return Iterator();
 	}
 
-	// Mï¿½TODOS QUE USAN ITERADORES
+	// MÉTODOS QUE USAN ITERADORES
 	/**
-	 Mï¿½todo para insertar un elemento en la lista
+	 Método para insertar un elemento en la lista
 	 en el punto marcado por el iterador. En concreto,
-	 se aï¿½ade _justo antes_ que el elemento actual. Es
+	 se añade _justo antes_ que el elemento actual. Es
 	 decir, si it==lista.begin(), el elemento insertado se
 	 convierte en el primer elemento (y el iterador
-	 apuntarï¿½ al segundo). Si it==lista.end(), el elemento
-	 insertado serï¿½ el ï¿½ltimo (e it seguirï¿½ apuntando
+	 apuntará al segundo). Si it==lista.end(), el elemento
+	 insertado será el último (e it seguirá apuntando
 	 fuera del recorrido). Generadora.
 
 	 @param elem Valor del elemento a insertar.
@@ -521,15 +460,15 @@ public:
 
 	/**
 	 Permite eliminar de la lista el elemento
-	 apuntado por el iterador que se pasa como parï¿½metro.
-	 El iterador recibido DEJA DE SER Vï¿½LIDO. En su
-	 lugar, deberï¿½ utilizarse el iterador devuelto, que
-	 apuntarï¿½ al siguiente elemento al borrado.
+	 apuntado por el iterador que se pasa como parámetro.
+	 El iterador recibido DEJA DE SER VÁLIDO. En su
+	 lugar, deberá utilizarse el iterador devuelto, que
+	 apuntará al siguiente elemento al borrado.
 
 	 @param it Iterador colocado en el elemento que se
 	 quiere borrar.
 	 @return Nuevo iterador colocado en el elemento siguiente
-	 al borrado (serï¿½ end() si el elemento que se borrï¿½ era el ï¿½ltimo de la lista).
+	 al borrado (será end() si el elemento que se borró era el último de la lista).
 	 */
 	Iterator eliminar(const Iterator &it) {
 		if (it._act == NULL) throw EAccesoInvalido();
