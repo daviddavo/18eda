@@ -3,6 +3,8 @@
 
 #include <string>
 #include "lista.h"
+#include "diccionario.h"
+#include "DiccionarioHash.h"
 
 typedef std::string tCliente;
 typedef std::string tProducto;
@@ -34,11 +36,15 @@ class Venta {
 		   _producto = producto;
 		   _unidades_vendidas = unidades_vendidas;
 	   }	
+	   bool operator==(const Venta & other) const {
+		   return _producto == other._producto && _unidades_vendidas == other._unidades_vendidas;
+	   }
 };
 
 class SistemaVentas {
 	public:
 	   SistemaVentas();
+	   ~SistemaVentas();
 	   void an_oferta(const tProducto& producto, unsigned int num_unidades);
 	   void pon_en_espera(const tCliente& cliente, const tProducto& producto);
 	   void cancela_espera(const tCliente& cliente, const tProducto& producto);
@@ -47,7 +53,16 @@ class SistemaVentas {
 	   const std::string& primero_en_espera(const tProducto& producto) const;
 	   Lista<Venta> lista_ventas() const;
      private:	   
-	   /* INCLUYE AQUI LAS DEFINICIONES RELATIVAS A LA REPRESENTACION */	   
+		class Oferta {
+		   public:
+		   int restantes;
+		   Lista<tCliente> colaClientes;
+		   Oferta(int r) : restantes(r) {};
+	    };
+
+	    Diccionario<tProducto, int> listaVentas;
+	    DiccionarioHash<tProducto, Oferta*> diccOfertas;
+
 };
 
 #endif

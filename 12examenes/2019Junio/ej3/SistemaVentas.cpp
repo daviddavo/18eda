@@ -10,27 +10,35 @@ using namespace std;
 
 
   /*
-	 COMPLEJIDAD: Determina aquí, justificadamente, cuál es la complejidad de 
-	 la operación
-	 
-	 
-	 
+	La complejidad de crear listas y diccionarios vacíos: O(1)
 	*/
 SistemaVentas::SistemaVentas() {
 	/* A IMPLEMENTAR */
 	
 }
 
+
+SistemaVentas::~SistemaVentas() {
+	for (auto it = diccOfertas.cbegin(); it != diccOfertas.cend(); it.next())
+		delete it.valor();
+}
+
   /*
-	 COMPLEJIDAD: Determina aquí, justificadamente, cuál es la complejidad de 
-	 la operación
-	 
-	 
-	 
+	La complejidad de insertar en un arbol binario, o comprobar si el elemento está
+	dentro de el otro arbol binario. En ambos casos, en el peor de los casos es O(n)
 	*/
 void SistemaVentas::an_oferta(const tProducto& producto, unsigned int num_unidades) {
-	/* A IMPLEMENTAR */
-	
+	if (num_unidades <= 0 || diccOfertas.contiene(producto)) throw EErrorAltaProducto();
+
+	diccOfertas.inserta(producto, new Oferta(num_unidades));
+	if (!listaVentas.contiene(producto)) listaVentas.inserta(producto, 0);
+}
+
+static bool contiene (const Lista<tCliente> & lista, const tCliente & cliente) {
+	for (auto it = lista.cbegin(); it != lista.cend(); it.next())
+		if (it.elem() == cliente) return true;
+
+	return false;
 }
 
   /*
@@ -41,8 +49,11 @@ void SistemaVentas::an_oferta(const tProducto& producto, unsigned int num_unidad
 	 
 	*/
 void SistemaVentas::pon_en_espera(const tCliente& cliente, const tProducto& producto) {
-	/* A IMPLEMENTAR */
+	if (!diccOfertas.contiene(producto)) throw EProductoNoExiste();
 
+	Oferta * of = diccOfertas.valorPara(producto);
+	if (!contiene(of->colaClientes, cliente))
+		of->colaClientes.pon_final(cliente);
 }	
 	
    /*
@@ -52,7 +63,15 @@ void SistemaVentas::pon_en_espera(const tCliente& cliente, const tProducto& prod
 	 
 	*/
 void SistemaVentas::cancela_espera(const tCliente& cliente, const tProducto& producto) {
-	/* A IMPLEMENTAR */
+	if (!diccOfertas.contiene(producto)) throw EProductoNoExiste();
+
+	Oferta * of = diccOfertas.valorPara(producto);
+	for (auto it = of->colaClientes.begin(); it != of->colaClientes.end(); it.next()) {
+		if (it.elem() == cliente) {
+			of->colaClientes.eliminar(it);
+			return;
+		}
+	}
 }
 
   /*
@@ -63,7 +82,8 @@ void SistemaVentas::cancela_espera(const tCliente& cliente, const tProducto& pro
 	 
 	*/
 unsigned int SistemaVentas::num_en_espera(const tProducto& producto) const {
-	/* A IMPLEMENTAR */
+	if (!diccOfertas.contiene(producto)) throw EProductoNoExiste();
+	return diccOfertas.valorPara(producto)->colaClientes.longitud();
 }
 
    /*
@@ -74,7 +94,19 @@ unsigned int SistemaVentas::num_en_espera(const tProducto& producto) const {
 	 
 	*/
 void SistemaVentas::venta(const tProducto& producto, unsigned int num_entradas) {
-	/* A IMPLEMENTAR */
+	if (!diccOfertas.contiene(producto)) throw EProductoNoExiste();
+	
+	Oferta * of = diccOfertas.valorPara(producto);
+	if (of->colaClientes.esVacia()) throw EErrorVenta();
+	if (num_entradas > of->restantes) throw EErrorVenta();
+
+	of->colaClientes.quita_ppio();
+	if (num_entradas == of->restantes) {
+		delete of;
+		diccOfertas.borra(producto);
+	} else {
+		of->restantes -= num_entradas;
+	}
 }
 
    /*
@@ -85,7 +117,11 @@ void SistemaVentas::venta(const tProducto& producto, unsigned int num_entradas) 
 	 
 	*/
 const string& SistemaVentas::primero_en_espera(const tProducto& producto) const {
-	/* A IMPLEMENTAR */
+	if (!diccOfertas.contiene(producto)) throw EProductoNoExiste();
+	Oferta * of = diccOfertas.valorPara(producto);
+
+	if (of->colaClientes.esVacia()) throw EErrorAccesoListaEspera();
+	return of->colaClientes.primero();
 }
 
     /*
@@ -96,6 +132,10 @@ const string& SistemaVentas::primero_en_espera(const tProducto& producto) const 
 	 
 	*/
 Lista<Venta> SistemaVentas::lista_ventas() const {
-	/* A IMPLEMENTAR */
+	Lista<Venta> ret;
+	for (auto it = listaVentas.cbegin(); it != listaVentas.cend(); it.next())
+		ret.pon_final(Venta(it.clave(), it.valor()));
+
+	return ret;
 }
 
