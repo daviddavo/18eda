@@ -2,14 +2,22 @@
 #include "sol.h"
 #include "Arbin.h"
 
-class TestArbolPerdidasGanancias : public ::testing::Test {
-    protected:
-    Arbin<int> a0_;
-    Arbin<int> a1_;
-    Arbin<int> a2_;
+typedef struct {
+    Arbin<int> a;
+    bool r;
+    int m;
+} tExpected;
 
-    void SetUp() override {
-        a1_ = Arbin<int>(
+class TestArbolPerdidasGanancias : public ::testing::TestWithParam<tExpected> {};
+
+INSTANTIATE_TEST_SUITE_P(ITestPG, TestArbolPerdidasGanancias, ::testing::Values(
+    tExpected {
+        Arbin<int>(),
+        false,
+        -3
+    },
+    tExpected {
+        Arbin<int>(
             Arbin<int>(
                 Arbin<int>(),
                 -9,
@@ -21,9 +29,12 @@ class TestArbolPerdidasGanancias : public ::testing::Test {
                 -4,
                 Arbin<int>(3)
             )
-        );
-
-        a2_ = Arbin<int>(
+        ),
+        true,
+        4
+    },
+    tExpected {
+        Arbin<int>(
             Arbin<int>(
                 Arbin<int>(5),
                 -2,
@@ -35,20 +46,25 @@ class TestArbolPerdidasGanancias : public ::testing::Test {
                 -1,
                 Arbin<int>(-1)
             )
-        );
+        ),
+        false,
+        9142149
+    },
+    tExpected {
+        Arbin<int>(5),
+        true,
+        5
     }
-};
+));
 
-TEST_F(TestArbolPerdidasGanancias, Everything) {
+TEST_P(TestArbolPerdidasGanancias, Everything) {
     bool rentable;
     int renta_maxima;
-    mejor_renta(a0_, rentable, renta_maxima);
-    EXPECT_FALSE(rentable);
-    mejor_renta(a1_, rentable, renta_maxima);
-    EXPECT_TRUE(rentable);
-    EXPECT_EQ(renta_maxima, 4);
-    mejor_renta(a2_, rentable, renta_maxima);
-    EXPECT_FALSE(rentable);
+    tExpected exp = GetParam();
+    mejor_renta(exp.a, rentable, renta_maxima);
+    EXPECT_EQ(exp.r, rentable);
+    if (rentable && exp.r) 
+        EXPECT_EQ(exp.m, renta_maxima);
 }
 
 int main(int argc, char **argv) {

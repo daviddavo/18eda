@@ -21,7 +21,7 @@ void mejor_renta(const Arbin<int> a, bool& es_rentable, int& renta_maxima, int r
 void mejor_renta(const Arbin<int> a, bool& es_rentable, int& renta_maxima) {
 	es_rentable = false;
 	renta_maxima = 0;
-    if (a.esVacio()) return;
-	if (!a.hijoIz().esVacio()) mejor_renta(a.hijoIz(), es_rentable, renta_maxima, a.raiz());
-	if (!a.hijoDer().esVacio()) mejor_renta(a.hijoDer(), es_rentable, renta_maxima, a.raiz());
+	if (a.esVacio()) return;
+	
+	mejor_renta(a, es_rentable, renta_maxima, 0);
 }
