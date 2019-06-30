@@ -55,9 +55,9 @@ class SistemaVentas {
      private:	   
 		class Oferta {
 		   public:
-		   int restantes;
+		   unsigned restantes;
 		   Lista<tCliente> colaClientes;
-		   Oferta(int r) : restantes(r) {};
+		   Oferta(unsigned r) : restantes(r) {};
 	    };
 
 	    Diccionario<tProducto, int> listaVentas;
