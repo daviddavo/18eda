@@ -6,22 +6,16 @@ class TestVentas : public ::testing::Test {
     SistemaVentas _sv0;
     SistemaVentas _sv1;
 
-    Lista<Venta> _lv1;
-
     void SetUp() override {
         _sv1.an_oferta("lapiz", 3);
         _sv1.an_oferta("boligrafo", 5);
-
-        _lv1.pon_final(Venta("boligrafo", 0));
-        _lv1.pon_final(Venta("lapiz", 0));
-
         _sv1.pon_en_espera("Pedro", "lapiz");
     }
 };
 
 TEST_F(TestVentas, AnOferta) {
     EXPECT_THROW(_sv1.an_oferta("lapiz", 2), EErrorAltaProducto);
-    EXPECT_THROW(_sv1.an_oferta("lapiz", -5), EErrorAltaProducto);
+    EXPECT_THROW(_sv1.an_oferta("coso", 0), EErrorAltaProducto);
     EXPECT_NO_THROW(_sv1.an_oferta("coso", 3));
 }
 
@@ -34,10 +28,14 @@ TEST_F(TestVentas, CancelaEspera) {
     EXPECT_THROW(_sv1.cancela_espera("Juan", "coso"), EProductoNoExiste);
     EXPECT_NO_THROW(_sv1.cancela_espera("Pedro", "lapiz"));
     EXPECT_NO_THROW(_sv1.cancela_espera("Pedro", "lapiz"));
+    EXPECT_NO_THROW(_sv1.cancela_espera("Juan", "lapiz"));
 }
 
 TEST_F(TestVentas, NumEnEspera) {
+    EXPECT_THROW(_sv1.num_en_espera("coso"), EProductoNoExiste);
     EXPECT_EQ(_sv1.num_en_espera("lapiz"), 1);
+    _sv1.pon_en_espera("Juan", "lapiz");
+    EXPECT_EQ(_sv1.num_en_espera("lapiz"), 2);
     _sv1.pon_en_espera("Juan", "lapiz");
     EXPECT_EQ(_sv1.num_en_espera("lapiz"), 2);
     _sv1.cancela_espera("Juan", "lapiz");
@@ -45,16 +43,29 @@ TEST_F(TestVentas, NumEnEspera) {
 }
 
 TEST_F(TestVentas, Venta) {
-    EXPECT_THROW(_sv1.venta("coso", 3), EProductoNoExiste);
+    EXPECT_THROW(_sv1.venta("coso", 3), EErrorVenta);
     EXPECT_THROW(_sv1.venta("lapiz", -3), EErrorVenta);
     EXPECT_THROW(_sv1.venta("lapiz", 500), EErrorVenta);
     EXPECT_THROW(_sv1.venta("boligrafo", 1), EErrorVenta);
     EXPECT_NO_THROW(_sv1.venta("lapiz", 1));
     EXPECT_EQ(_sv1.num_en_espera("lapiz"), 0);
+    _sv1.pon_en_espera("Juan", "lapiz");
+    EXPECT_NO_THROW(_sv1.venta("lapiz", 2));
+    EXPECT_THROW(_sv1.venta("lapiz", 1), EErrorVenta);
+
+    _sv1.an_oferta("coso", 3);
+    EXPECT_THROW(_sv1.venta("coso", 1), EErrorVenta);
+    
+    /**
+    _sv1.pon_en_espera("Juan", "coso");
+    EXPECT_EQ(_sv1.num_en_espera("coso"), 1);
+    _sv1.venta("coso", 0);
+    EXPECT_EQ(_sv1.num_en_espera("coso"), 1);
+    */
 }
 
 TEST_F(TestVentas, PrimeroEnEspera) {
-    EXPECT_THROW(_sv1.primero_en_espera("coso"), EProductoNoExiste);
+    EXPECT_THROW(_sv1.primero_en_espera("coso"), EErrorAccesoListaEspera);
     EXPECT_THROW(_sv1.primero_en_espera("boligrafo"), EErrorAccesoListaEspera);
     EXPECT_EQ(_sv1.primero_en_espera("lapiz"), "Pedro");
     _sv1.venta("lapiz", 2);
@@ -68,11 +79,11 @@ TEST_F(TestVentas, PrimeroEnEspera) {
 
 TEST_F(TestVentas, ListaVentas) {
     EXPECT_EQ(_sv0.lista_ventas(), Lista<Venta>());
-    EXPECT_EQ(_sv1.lista_ventas(), _lv1);
+    EXPECT_EQ(_sv1.lista_ventas(), Lista<Venta>());
     _sv1.venta("lapiz", 1);
-    _lv1.quita_final();
-    _lv1.pon_final(Venta("lapiz", 1));
-    EXPECT_EQ(_sv1.lista_ventas(), _lv1);
+    Lista<Venta> lv1;
+    lv1.pon_final(Venta("lapiz", 1));
+    EXPECT_EQ(_sv1.lista_ventas(), lv1);
 }
 
 int main(int argc, char **argv) {

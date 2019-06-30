@@ -44,7 +44,6 @@ class Venta {
 class SistemaVentas {
 	public:
 	   SistemaVentas();
-	   ~SistemaVentas();
 	   void an_oferta(const tProducto& producto, unsigned int num_unidades);
 	   void pon_en_espera(const tCliente& cliente, const tProducto& producto);
 	   void cancela_espera(const tCliente& cliente, const tProducto& producto);
@@ -61,7 +60,7 @@ class SistemaVentas {
 	    };
 
 	    Diccionario<tProducto, int> listaVentas;
-	    DiccionarioHash<tProducto, Oferta*> diccOfertas;
+	    DiccionarioHash<tProducto, Oferta> diccOfertas;
 
 };
 
