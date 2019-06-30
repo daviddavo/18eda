@@ -5,25 +5,10 @@ NOMBRE Y APELLIDOS:
 
 
 #include "Arbin.h"
+#include "sol.h"
 #include <iostream>
 #include <string>
 using namespace std;
-
-
-
-/* Puedes implementar aquí las funciones auxiliares que consideres
-   oportuno */
-
-/*
-COMPLEJIDAD: Determina justificadamente la complejidad del procedimiento 
-
-*/
-void mejor_renta(Arbin<int> a, bool& es_rentable, int& renta_maxima) {
-	/* A IMPLEMENTAR */
-	
-	
-}
-
 
 Arbin<int> lee_arbol(istream& in) {
 	char c;
