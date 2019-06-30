@@ -69,9 +69,9 @@ TEST_F(TestVentas, PrimeroEnEspera) {
 TEST_F(TestVentas, ListaVentas) {
     EXPECT_EQ(_sv0.lista_ventas(), Lista<Venta>());
     EXPECT_EQ(_sv1.lista_ventas(), _lv1);
-    _sv1.venta("boligrafo", 1);
-    _lv1.quita_ppio();
-    _lv1.pon_ppio(Venta("boligrafo", 1));
+    _sv1.venta("lapiz", 1);
+    _lv1.quita_final();
+    _lv1.pon_final(Venta("lapiz", 1));
     EXPECT_EQ(_sv1.lista_ventas(), _lv1);
 }
 

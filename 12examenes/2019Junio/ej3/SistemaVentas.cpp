@@ -107,6 +107,8 @@ void SistemaVentas::venta(const tProducto& producto, unsigned int num_entradas) 
 	} else {
 		of->restantes -= num_entradas;
 	}
+
+	listaVentas.inserta(producto, listaVentas.valorPara(producto)+num_entradas);
 }
 
    /*
