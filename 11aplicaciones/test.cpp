@@ -92,6 +92,7 @@ TEST_F(TestAplicaciones01, BigVector_suma) {
 
 // https://www.embalses.net/provincia-45-madrid.html
 class TestAplicaciones04 : public ::testing::Test {
+    protected:
     Cuenca _c0;
     Cuenca _c1;
 
@@ -99,17 +100,73 @@ class TestAplicaciones04 : public ::testing::Test {
         _c1.insertar_rio("Jarama"); // Vacío siempre
 
         _c1.insertar_rio("Manzanares");
-        _c1.insertar_pantano("Manzanares", 11, 5);
+        _c1.insertar_pantano("Manzanares", "Navacerrada", 11, 5);
         _c1.insertar_pantano("Manzanares", "El Pardo", 43, 6);
         _c1.insertar_pantano("Manzanares", "Santillana", 91, 59);
 
         _c1.insertar_rio("Lozoya");
         _c1.insertar_pantano("Lozoya", "Pinilla", 38, 27);
+        _c1.insertar_pantano("Lozoya", "IGN", 11, 20);  // TOO MUCH WATER
     }
 };
 
 TEST_F(TestAplicaciones04, Crear) {
     EXPECT_NO_THROW(Cuenca());
+}
+
+TEST_F(TestAplicaciones04, EmbalsadoPantano) {
+    EXPECT_EQ(_c1.embalsado_pantano("Manzanares", "Navacerrada"), 5);
+    EXPECT_EQ(_c1.embalsado_pantano("Lozoya", "Pinilla"), 27);    
+    EXPECT_EQ(_c1.embalsado_pantano("Lozoya", "IGN"), 11);
+}
+
+TEST_F(TestAplicaciones04, EmbalsadoCuenca) {
+    EXPECT_EQ(_c1.embalsado_cuenca("Manzanares"), 5+6+59);
+    EXPECT_EQ(_c1.embalsado_cuenca("Lozoya"), 38);
+}
+
+TEST_F(TestAplicaciones04, Embalsar) {
+    _c1.embalsar("Lozoya", "Pinilla", 5);
+    EXPECT_EQ(_c1.embalsado_pantano("Lozoya", "Pinilla"), 32);
+    EXPECT_EQ(_c1.embalsado_cuenca("Lozoya"), 43);
+    _c1.embalsar("Lozoya", "IGN", 200);
+    EXPECT_EQ(_c1.embalsado_pantano("Lozoya", "IGN"), 11);
+    EXPECT_EQ(_c1.embalsado_cuenca("Lozoya"), 43);
+    _c1.embalsar("Lozoya", "Pinilla", 200000);
+    EXPECT_EQ(_c1.embalsado_pantano("Lozoya", "Pinilla"), 38);
+    EXPECT_EQ(_c1.embalsado_cuenca("Lozoya"), 49);
+}
+
+TEST_F(TestAplicaciones04, Transvasar) {
+    // Transvase misma cuenca hidrografica
+    _c1.transvasar("Lozoya", "Pinilla", "Lozoya", "IGN", 5);
+    EXPECT_EQ(_c1.embalsado_pantano("Lozoya", "Pinilla"), 27);
+    EXPECT_EQ(_c1.embalsado_pantano("Lozoya", "IGN"), 11);
+    _c1.transvasar("Lozoya", "Pinilla", "Lozoya", "IGN", -5);
+    EXPECT_EQ(_c1.embalsado_pantano("Lozoya", "Pinilla"), 32);
+    EXPECT_EQ(_c1.embalsado_pantano("Lozoya", "IGN"), 6);
+    EXPECT_EQ(_c1.embalsado_cuenca("Lozoya"), 38);
+
+    // Transvase distinta cuenca hidrografica
+    _c1.transvasar("Lozoya", "Pinilla", "Manzanares", "Santillana", 1);
+    EXPECT_EQ(_c1.embalsado_pantano("Lozoya", "Pinilla"), 31);
+    EXPECT_EQ(_c1.embalsado_pantano("Manzanares", "Santillana"), 60);
+    EXPECT_EQ(_c1.embalsado_cuenca("Lozoya"), 37);
+    EXPECT_EQ(_c1.embalsado_cuenca("Manzanares"), 71);
+
+    // Transvase con más agua de la que tiene r1
+    _c1.transvasar("Lozoya", "IGN", "Manzanares", "El Pardo", 10);
+    EXPECT_EQ(_c1.embalsado_pantano("Lozoya", "IGN"), 0);
+    EXPECT_EQ(_c1.embalsado_pantano("Manzanares", "El Pardo"), 12);
+    EXPECT_EQ(_c1.embalsado_cuenca("Lozoya"), 31);
+    EXPECT_EQ(_c1.embalsado_cuenca("Manzanares"), 77);
+
+    // Transvase con más agua de la que soporta r2
+    _c1.transvasar("Manzanares", "Santillana", "Lozoya", "IGN", 50);
+    EXPECT_EQ(_c1.embalsado_pantano("Manzanares", "Santillana"), 49);
+    EXPECT_EQ(_c1.embalsado_pantano("Lozoya", "IGN"), 11);
+    EXPECT_EQ(_c1.embalsado_cuenca("Manzanares"), 66);
+    EXPECT_EQ(_c1.embalsado_cuenca("Lozoya"), 42);
 }
 
 int main(int argc, char **argv) {

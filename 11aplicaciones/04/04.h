@@ -53,7 +53,19 @@ class Cuenca {
             it.valor().total_litros += std::min(n1, n2);
         }
     }
-    void embalsar(const tRio & rio, const tPantano & pantano, int n);
+    void embalsar(const tRio & rio, const tPantano & pantano, int n) {
+        auto rit = rios.busca(rio);
+        if (rit != rios.end()) {
+            Rio & r = rit.valor();
+            auto pit = r.pantanos.busca(pantano);
+            if (pit != r.pantanos.end()) {
+                Pantano & p = pit.valor();
+                r.total_litros -= p.carga;
+                p.carga = std::min(p.capacidad, p.carga + n);
+                r.total_litros += p.carga;
+            }
+        }
+    }
 
     /**
      * Devuelve la cantidad de agua embalsada en el pantano p del río r. Operación
@@ -69,8 +81,40 @@ class Cuenca {
 
         return 0;
     }
-    unsigned int embalsado_cuenca(const tRio & rio);
-    void transvasar(const tRio & rio1, const tPantano & pantano1, const tRio & rio2, const tPantano & pantano2, int n);
-    private:
-    // Aquí toda la mierda que quieras usar para implementar el TAD
+    unsigned int embalsado_cuenca(const tRio & rio) const {
+        auto rit = rios.cbusca(rio);
+        if (rit != rios.cend()) {
+            return rit.valor().total_litros;
+        }
+
+        return 0;
+    }
+    void transvasar(const tRio & rio1, const tPantano & pantano1, const tRio & rio2, const tPantano & pantano2, int n) {
+        if (n < 0) {
+            transvasar(rio2, pantano2, rio1, pantano1, -n);
+        } else {
+            auto rit1 = rios.busca(rio1);
+            auto rit2 = rios.busca(rio2);
+            if (rit1 != rios.end() && rit2 != rios.end()) {
+                Rio & r1 = rit1.valor();
+                Rio & r2 = rit2.valor();
+                auto pit1 = r1.pantanos.busca(pantano1);
+                auto pit2 = r2.pantanos.busca(pantano2);
+                if (pit1 != r1.pantanos.end() && pit2 != r2.pantanos.end()) {
+                    Pantano & p1 = pit1.valor();
+                    Pantano & p2 = pit2.valor();
+
+                    // Ya tenemos los malditos pantanos, ahora a calcular la cantidad
+                    n = std::min(n, p1.carga); // Tantos litros como haya en el primer embalse (como mucho)
+                    n = std::min(n, p2.capacidad - p2.carga);   // Tantos litros como quepan en el segundo
+
+                    // Ahora a hacer un trasvase que ni el tajo-segura
+                    p1.carga -= n;
+                    r1.total_litros -= n;
+                    p2.carga += n;
+                    r2.total_litros += n;
+                }
+            }
+        }
+    }
 };
