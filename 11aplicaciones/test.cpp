@@ -2,6 +2,7 @@
 #include "gtest/gtest.h"
 
 #include "01/01.h"
+#include "04/04.h"
 
 class TestAplicaciones : public :: testing::Test {};
 
@@ -87,6 +88,28 @@ TEST_F(TestAplicaciones01, BigVector_suma) {
     EXPECT_EQ(_bv3.suma(_bv2), _bv2pbv3);
 
     EXPECT_EQ(_bv2.suma(_bv2), _bv2twice);
+}
+
+// https://www.embalses.net/provincia-45-madrid.html
+class TestAplicaciones04 : public ::testing::Test {
+    Cuenca _c0;
+    Cuenca _c1;
+
+    void SetUp() override {
+        _c1.insertar_rio("Jarama"); // Vacío siempre
+
+        _c1.insertar_rio("Manzanares");
+        _c1.insertar_pantano("Manzanares", 11, 5);
+        _c1.insertar_pantano("Manzanares", "El Pardo", 43, 6);
+        _c1.insertar_pantano("Manzanares", "Santillana", 91, 59);
+
+        _c1.insertar_rio("Lozoya");
+        _c1.insertar_pantano("Lozoya", "Pinilla", 38, 27);
+    }
+};
+
+TEST_F(TestAplicaciones04, Crear) {
+    EXPECT_NO_THROW(Cuenca());
 }
 
 int main(int argc, char **argv) {
